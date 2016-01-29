@@ -15,10 +15,10 @@ class Ui {
 		this.graphics.clear();
 
 		const barWidth = 230;
-		var p1ManaWidth = this.players[0].mana / Player.maxMana * barWidth;
-		var p1HealthWidth = this.players[0].health / Player.maxHealth * barWidth;
-		var p2ManaWidth = this.players[1].mana / Player.maxMana * barWidth;
-		var p2HealthWidth = this.players[1].health / Player.maxHealth * barWidth;
+		var p1ManaWidth = this.players[0].mana / this.players[0].maxMana * barWidth;
+		var p1HealthWidth = this.players[0].health / this.players[0].maxHealth * barWidth;
+		var p2ManaWidth = this.players[1].mana / this.players[1].maxMana * barWidth;
+		var p2HealthWidth = this.players[1].health / this.players[1].maxHealth * barWidth;
 		
 		//TODO: maybe we draw 7 when we are at 0 and scale to match instead of these hacks. sorry thanks
 		if (p1ManaWidth < 7 && p1ManaWidth > 0) {
