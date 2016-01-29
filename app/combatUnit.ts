@@ -1,4 +1,5 @@
 import GameObject = require('./gameObject');
+import Player = require('./player');
 
 class CombatUnit implements GameObject {
 	health: number;
@@ -6,11 +7,24 @@ class CombatUnit implements GameObject {
 	graphics: Phaser.Graphics;
 	sprite: Phaser.Sprite;
 	body: Phaser.Physics.P2.Body;
-	
-	constructor(game: Phaser.Game) {
+	player: Player;
+
+	constructor(game: Phaser.Game, player: Player) {
 		this.graphics = game.add.graphics(0, 0);
+		this.player = player || (<Player><any>this);
+		
+		//if (!(this.player instanceof Player)) {
+		//	debugger; //you fucked up
+		//}
 	}
-	
+
+	distanceTo(other: CombatUnit) {
+		let x = this.body.x - other.body.x;
+		let y = this.body.y - other.body.y;
+
+		return Math.sqrt(x * x + y * y);
+	}
+
 	update() {
 		this.graphics.clear();
 		this.graphics.x = this.sprite.x - 25;
@@ -21,7 +35,7 @@ class CombatUnit implements GameObject {
 		this.graphics.beginFill(0x60120B);
 		this.graphics.drawRoundedRect(0, 0, barWidth, 7, 1);
 		this.graphics.beginFill(0xE52C1B);
-		this.graphics.drawRoundedRect(0, 0, healthWidth, 7, 1);		
+		this.graphics.drawRoundedRect(0, 0, healthWidth, 7, 1);
 	}
 }
 
