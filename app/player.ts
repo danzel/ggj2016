@@ -1,7 +1,6 @@
 class Player {
-	x: number;
-	y: number; //or physics body?
 	sprite: Phaser.Sprite;
+	body: Phaser.Physics.P2.Body;
 	
 	mana: number = 50;
 	health: number = 100;
@@ -16,7 +15,24 @@ class Player {
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
 		
-		//TODO controls gamepad.addCallbacks
+		game.physics.p2.enable(this.sprite, true);
+		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
+		
+		this.body.setCircle(30);
+		this.body.setZeroDamping();
+		this.body.fixedRotation = true;
+	}
+	
+	update() {
+		//TODO: this means the player always has really good control, if we want them to be pushed around this won't work.
+		this.body.setZeroVelocity();
+		this.body.moveRight(this.gamepad.axis(0) * 400);
+		this.body.moveDown(this.gamepad.axis(1) * 400);
+		
+		//TODO: other controls...
+
+		//this.sprite.body.force.x = this.gamepad.axis(0) * 100;
+		//this.sprite.body.force.y = this.gamepad.axis(1) * 100;
 	}
 
 }

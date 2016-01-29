@@ -34,6 +34,10 @@ class AppEntry {
 	}
 
 	update() {
+		
+		for (let i = 0; i < this.players.length; i++) {
+			this.players[i].update();
+		}
 		//debugger;
 		//this.game.time.physicsElapsed
 	}
