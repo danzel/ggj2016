@@ -39,6 +39,14 @@ class CombatUnit implements GameObject {
 		this.graphics.beginFill(0xE52C1B);
 		this.graphics.drawRect(0, 0, healthWidth, 7);
 	}
+
+	takeDamage(damage: number) {
+		this.health -= damage;
+		if (this.health <= 0) {
+			this.sprite.destroy(); //TODO: effect
+		}
+
+	}
 }
 
 export = CombatUnit;

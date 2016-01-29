@@ -86,10 +86,7 @@ class MeleeUnit extends CombatUnit {
 			for (let i = this.collidingWith.length - 1; i >= 0; i--) {
 				let c = this.collidingWith[i];
 
-				c.health -= damage;
-				if (c.health <= 0) {
-					c.sprite.destroy(); //TODO: effect
-				}
+				c.takeDamage(damage);
 			}
 		}
 
