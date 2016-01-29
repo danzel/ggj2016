@@ -88,7 +88,7 @@ class Harvester implements GameObject {
 
 		for (let i = 0; i < Globals.gameObjects.length; i++) {
 			let l = Globals.gameObjects[i];
-			if (!(l instanceof Lamb) && !(<Lamb>l).beingDragged) {
+			if (!(l instanceof Lamb) || (<Lamb>l).beingDragged) {
 				continue;
 			}
 
