@@ -7,7 +7,7 @@ import Materials = require('./materials');
 
 class MeleeUnit extends CombatUnit {
 	collidingWith: Array<CombatUnit> = [];
-	
+
 	target: CombatUnit;
 
 	constructor(private game: Phaser.Game, player: Player, x: number, y: number) {
@@ -45,7 +45,7 @@ class MeleeUnit extends CombatUnit {
 		}
 
 		let combatUnit = <CombatUnit>(<any>bodyA).combatUnit;
-		if (combatUnit) {
+		if (combatUnit && this.player != combatUnit.player) {
 			this.collidingWith.push(combatUnit);
 		}
 	}
@@ -69,7 +69,7 @@ class MeleeUnit extends CombatUnit {
 
 	update() {
 		this.updateCollisionsAndDamage();
-		
+
 		this.updateMovement();
 	}
 
@@ -92,48 +92,64 @@ class MeleeUnit extends CombatUnit {
 				}
 			}
 		}
-		
+
 		super.update();
 	}
-	
+
 	updateMovement() {
-		
+
 		if (this.target && !this.target.sprite.alive) {
 			this.target = null;
 		}
-		
+
 		this.performTargetUpdateIfRequired();
 
-		
+		if (!this.target) {
+			return;
+		}
+
+		let xDiff = this.target.body.x - this.body.x;
+		let yDiff = this.target.body.y - this.body.y;
+
+		let dist = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+
+		xDiff /= dist;
+		yDiff /= dist;
+
+		let force = 30;
+		this.body.applyForce([-xDiff * force, -yDiff * force], 0, 0);
 	}
 
 	private lastTargetCheckTime: number;
 	performTargetUpdateIfRequired() {
 		let needUpdate = false;
-		
+
 		if (this.game.time.now - this.lastTargetCheckTime > 500) {
 			needUpdate = true;
 		} else if (!this.target) {
 			needUpdate = true;
 		}
-		
+
 		if (!needUpdate) {
 			return;
 		}
-		
+		this.lastTargetCheckTime = this.game.time.now;
+
 		let minDist = 9999999999;
-		
+
 		for (let i = 0; i < Globals.gameObjects.length; i++) {
 			let o = Globals.gameObjects[i];
-			
+
 			if (!(o instanceof CombatUnit)) {
-				return;
+				continue;
 			}
 			let cu = <CombatUnit>o;
 			
 			//target filtering
-			
-			
+			if (cu.player == this.player) {
+				continue;
+			}
+			//TODO: can't attack flying? maybe we can ask if we collide with it?
 			
 			let dist = this.distanceTo(cu);
 			if (dist < minDist) {
