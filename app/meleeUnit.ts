@@ -24,7 +24,7 @@ class MeleeUnit implements CombatUnit {
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
 		(<any>this.body).combatUnit = this;
 		this.body.setCircle(20);
-		this.body.setZeroDamping();
+		this.body.damping = 0.9999;
 		this.body.fixedRotation = true;
 		this.body.setMaterial(Materials.groundUnitMaterial);
 
