@@ -45,6 +45,8 @@ class CombatUnit implements GameObject {
 		if (this.health <= 0) {
 			this.sprite.destroy(); //TODO: effect
 			this.graphics.destroy();
+			
+			this.onDead();
 		}
 	}
 	

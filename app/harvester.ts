@@ -100,6 +100,10 @@ class Harvester extends CombatUnit {
 			}
 		}
 	}
+	
+	onDead() {
+		this.lambSacrificed(this.target);
+	}
 }
 
 export = Harvester;
