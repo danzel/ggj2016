@@ -6,6 +6,7 @@ import Lamb = require('./lamb');
 import Materials = require('./materials');
 import MeleeUnit = require('./meleeUnit');
 import SacrificePit = require('./sacrificePit');
+import TankUnit = require('./tankUnit');
 
 class Player extends CombatUnit {
 	maxMana: number = 100;
@@ -128,7 +129,7 @@ class Player extends CombatUnit {
 			if (justX && this.mana >= 30) {
 				this.mana -= 30;
 
-				//TODO Globals.gameObjects.push(new MeleeUnit(this.game, this, spawnX, spawnY));
+				Globals.gameObjects.push(new TankUnit(this.game, this, spawnX, spawnY));
 			}
 
 			if (justY && this.mana >= 30) {
