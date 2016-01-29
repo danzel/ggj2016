@@ -22,6 +22,7 @@ class Lamb {
 		this.body.setCollisionGroup(Globals.lambCollisionGroup);
 		this.body.collides([Globals.playerCollisionGroup, Globals.lambCollisionGroup, Globals.pitCollisionGroup]);
 
+		(<any>this.sprite).lamb = this;
 	}
 }
 

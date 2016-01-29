@@ -1,4 +1,5 @@
 import Globals = require('./globals');
+import Lamb = require('./lamb');
 
 class Player {
 	sprite: Phaser.Sprite;
@@ -7,6 +8,9 @@ class Player {
 	mana: number = 50;
 	health: number = 100;
 
+	followers: Array<Lamb> = [];
+	maxFollowers: number = 1;
+	
 	constructor(private game: Phaser.Game, public id: number, private gamepad: Phaser.SinglePad) {
 
 		if (id == 1) {
@@ -33,9 +37,12 @@ class Player {
 	}
 
 	lambCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
-		console.log('asdasdasd');
-		//debugger;
-		//TODO
+		
+		if (this.followers.length < this.maxFollowers) {
+			this.followers.push((<any>body2.sprite).lamb);
+			
+			this.game.physics.p2.createSpring(body1, body2, 60, 50, 0.2);
+		}
 	}
 
 	update() {
