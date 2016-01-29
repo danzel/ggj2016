@@ -1,4 +1,5 @@
 import Globals = require('./globals');
+import Harvester = require('./harvester');
 import ImageLoader = require('./imageLoader');
 import Lamb = require('./lamb');
 import Player = require('./player');
@@ -11,7 +12,6 @@ class AppEntry {
 	
 	players: Array<Player> = [];
 	sacrificePits: Array<SacrificePit> = [];
-	lambs: Array<Lamb> = [];
 
 	constructor() {
 		this.game = new Phaser.Game(1280, 720, Phaser.AUTO, '', this, false, true, null);
@@ -39,9 +39,11 @@ class AppEntry {
 		this.sacrificePits.push(new SacrificePit(this.game, this.players[0]));
 		this.sacrificePits.push(new SacrificePit(this.game, this.players[1]));
 
+		
+		Globals.gameObjects.push(this.players[0], this.players[1], this.sacrificePits[0], this.sacrificePits[1]);
 
 		for (let i = 0; i < 100; i++) {
-			this.lambs.push(new Lamb(this.game, 200 + (1280 - 200 - 200) * Math.random(), 720 * Math.random()));
+			Globals.gameObjects.push(new Lamb(this.game, 200 + (1280 - 200 - 200) * Math.random(), 720 * Math.random()));
 		}
 
 		this.ui = new Ui(this.game, this.players);
@@ -49,18 +51,14 @@ class AppEntry {
 
 	update() {
 
-		for (let i = 0; i < this.players.length; i++) {
-			this.players[i].update();
-		}
-		
-		for (let i = 0; i < this.lambs.length; i++) {
+		for (let i = 0; i < Globals.gameObjects.length; i++) {
 			//tidy up
-			if (!this.lambs[i].sprite.alive) {
-				this.lambs.splice(i, 1);
+			if (!Globals.gameObjects[i].sprite.alive) {
+				Globals.gameObjects.splice(i, 1);
 				continue;
 			}
 			
-			this.lambs[i].update();
+			Globals.gameObjects[i].update();
 		}
 		
 		

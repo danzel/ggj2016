@@ -1,7 +1,10 @@
+import GameObject = require('./gameObject');
 import Globals = require('./globals');
+import Harvester = require('./harvester');
 import Lamb = require('./lamb');
+import SacrificePit = require('./sacrificePit');
 
-class Player {
+class Player implements GameObject {
 	sprite: Phaser.Sprite;
 	body: Phaser.Physics.P2.Body;
 
@@ -11,9 +14,12 @@ class Player {
 	mana: number = 50;
 	health: number = 100;
 
+	sacrificePit: SacrificePit;
 	followers: Array<Lamb> = [];
 	springs: Array<Phaser.Physics.P2.Spring> = [];
 	maxFollowers: number = 1;
+	
+	private buttonA = false;
 	
 	constructor(private game: Phaser.Game, public id: number, private gamepad: Phaser.SinglePad) {
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
@@ -84,8 +90,18 @@ class Player {
 			this.sprite.angle = angle;
 		}
 		
-		
-		
+		if (this.gamepad.connected) {
+			let nowA = this.gamepad.getButton(Phaser.Gamepad.XBOX360_A).isDown;
+			let justA = !this.buttonA && nowA;
+			this.buttonA = nowA;
+			
+			if (justA && this.mana >= 30) {
+				this.mana -= 30;
+				let spawnX = this.sprite.x + 70 * Math.sin((this.sprite.angle + 90) * Math.PI / 180);
+				let spawnY = this.sprite.y - 70 * Math.cos((this.sprite.angle + 90) * Math.PI / 180);
+				Globals.gameObjects.push(new Harvester(this.game, this, spawnX, spawnY));
+			}
+		}
 		
 		
 		//TODO: other controls...

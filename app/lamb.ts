@@ -1,10 +1,11 @@
+import GameObject = require('./gameObject');
 import Globals = require('./globals');
 
 
 //Note: Not an actual lamb
 
 
-class Lamb {
+class Lamb implements GameObject {
 	sprite: Phaser.Sprite;
 	body: Phaser.Physics.P2.Body;
 
