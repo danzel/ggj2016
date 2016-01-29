@@ -39,10 +39,11 @@ class Player {
 	}
 
 	lambCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
-		if (this.followers.length < this.maxFollowers) {
-			this.followers.push((<any>body2.sprite).lamb);
+		let lamb = <Lamb>(<any>body2.sprite).lamb;
+		if (this.followers.length < this.maxFollowers && this.followers.indexOf(lamb) == -1) {
+			this.followers.push(lamb);
 			
-			this.springs.push(this.game.physics.p2.createSpring(body1, body2, 60, 50, 0.2));
+			this.springs.push(this.game.physics.p2.createSpring(body1, body2, 50, 50, 0.2));
 		}
 	}
 
