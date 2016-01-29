@@ -1,17 +1,16 @@
+import CombatUnit = require('./combatUnit');
 import GameObject = require('./gameObject');
 import Globals = require('./globals');
 import Lamb = require('./lamb');
 import Player = require('./player');
 
-class Harvester implements GameObject {
-	sprite: Phaser.Sprite;
-	body: Phaser.Physics.P2.Body;
-
+class Harvester extends CombatUnit {
 	target: Lamb;
 	isDraggingTarget: boolean;
 	targetSpring: Phaser.Physics.P2.Spring;
 
 	constructor(private game: Phaser.Game, private player: Player, x: number, y: number) {
+		super(game);
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
 		this.sprite = game.add.sprite(x, y);
@@ -58,27 +57,27 @@ class Harvester implements GameObject {
 			this.findNewTarget();
 		}
 
-		if (!this.target) {
-			return;
+		if (this.target) {
+
+			let moveTarget: GameObject;
+			if (this.isDraggingTarget) {
+				moveTarget = this.player.sacrificePit;
+			} else {
+				moveTarget = this.target;
+			}
+
+			let xDiff = moveTarget.body.x - this.body.x;
+			let yDiff = moveTarget.body.y - this.body.y;
+
+			let dist = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+
+			xDiff /= dist;
+			yDiff /= dist;
+
+			let force = 30;
+			this.body.applyForce([-xDiff * force, -yDiff * force], 0, 0);
 		}
-
-		let moveTarget: GameObject;
-		if (this.isDraggingTarget) {
-			moveTarget = this.player.sacrificePit;
-		} else {
-			moveTarget = this.target;
-		}
-
-		let xDiff = moveTarget.body.x - this.body.x;
-		let yDiff = moveTarget.body.y - this.body.y;
-
-		let dist = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
-
-		xDiff /= dist;
-		yDiff /= dist;
-
-		let force = 30;
-		this.body.applyForce([-xDiff * force, -yDiff * force], 0, 0);
+		super.update();
 	}
 
 	private findNewTarget() {

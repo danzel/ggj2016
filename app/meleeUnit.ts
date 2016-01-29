@@ -78,18 +78,16 @@ class MeleeUnit extends CombatUnit {
 			}
 		}
 
-		if (this.collidingWith.length == 0) {
-			return;
-		}
+		if (this.collidingWith.length != 0) {
+			let damage = 10 * this.game.time.physicsElapsed / this.collidingWith.length;
 
-		let damage = 10 * this.game.time.physicsElapsed / this.collidingWith.length;
-
-		for (let i = this.collidingWith.length - 1; i >= 0; i--) {
-			let c = this.collidingWith[i];
-			
-			c.health -= damage;
-			if (c.health <= 0) {
-				c.sprite.destroy(); //TODO: effect
+			for (let i = this.collidingWith.length - 1; i >= 0; i--) {
+				let c = this.collidingWith[i];
+				
+				c.health -= damage;
+				if (c.health <= 0) {
+					c.sprite.destroy(); //TODO: effect
+				}
 			}
 		}
 		
