@@ -89,11 +89,7 @@ class Player extends CombatUnit {
 		this.body.moveRight(x * 400);
 		this.body.moveDown(y * 400);
 		
-		//Angle body based on desired movement direction
-		if (x != 0 || y != 0) {
-			var angle = Math.atan2(y, x) * 180 / Math.PI;
-			this.sprite.angle = angle;
-		}
+		this.rotateSprite(x, y);
 
 		if (this.gamepad.connected) {
 			let nowA = this.gamepad.getButton(Phaser.Gamepad.XBOX360_A).isDown;

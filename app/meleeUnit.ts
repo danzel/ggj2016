@@ -115,6 +115,7 @@ class MeleeUnit extends CombatUnit {
 
 		let force = 30;
 		this.body.applyForce([-xDiff * force, -yDiff * force], 0, 0);
+		this.rotateSprite(-xDiff, -yDiff);
 	}
 
 	private lastTargetCheckTime: number;

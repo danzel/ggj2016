@@ -27,6 +27,14 @@ class CombatUnit implements GameObject {
 		return Math.sqrt(x * x + y * y);
 	}
 
+	rotateSprite(x: number, y: number) {
+		//Angle body based on desired movement direction
+		if (x != 0 || y != 0) {
+			var angle = Math.atan2(y, x) * 180 / Math.PI;
+			this.sprite.angle = angle;
+		}
+	}
+
 	update() {
 		this.graphics.clear();
 		this.graphics.x = this.sprite.x - 25;
@@ -45,11 +53,11 @@ class CombatUnit implements GameObject {
 		if (this.health <= 0) {
 			this.sprite.destroy(); //TODO: effect
 			this.graphics.destroy();
-			
+
 			this.onDead();
 		}
 	}
-	
+
 	onDead() {
 		//Override in child classes
 	}
