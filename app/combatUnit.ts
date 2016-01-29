@@ -1,4 +1,5 @@
 import GameObject = require('./gameObject');
+import HealthBar = require('./healthBar');
 import Player = require('./player');
 
 class CombatUnit implements GameObject {
@@ -7,6 +8,7 @@ class CombatUnit implements GameObject {
 	graphics: Phaser.Graphics;
 	sprite: Phaser.Sprite;
 	body: Phaser.Physics.P2.Body;
+	healthBar: HealthBar;
 	player: Player;
 
 	constructor(game: Phaser.Game, player: Player, maxHealth: number) {
@@ -14,6 +16,7 @@ class CombatUnit implements GameObject {
 		this.player = player || (<Player><any>this);
 		this.maxHealth = maxHealth;
 		this.health = this.maxHealth;
+		this.healthBar = new HealthBar(this.graphics, 50, 7, 1, 0x60120B, 0xE52C1B, this.player.id == 2, 0, 0);
 		
 		//if (!(this.player instanceof Player)) {
 		//	debugger; //you fucked up
@@ -39,13 +42,7 @@ class CombatUnit implements GameObject {
 		this.graphics.clear();
 		this.graphics.x = this.sprite.x - 25;
 		this.graphics.y = this.sprite.y - 45;
-		// health bar
-		const barWidth = 50;
-		var healthWidth = this.health / this.maxHealth * barWidth;
-		this.graphics.beginFill(0x60120B);
-		this.graphics.drawRect(0, 0, barWidth, 7);
-		this.graphics.beginFill(0xE52C1B);
-		this.graphics.drawRect(0, 0, healthWidth, 7);
+		this.healthBar.draw(this.health, this.maxHealth);
 	}
 
 	takeDamage(damage: number) {
