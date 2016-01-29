@@ -7,12 +7,8 @@ import Ui = require('./ui');
 
 class AppEntry {
 	game: Phaser.Game;
-<<<<<<< HEAD
 	ui: Ui;
 	
-=======
-
->>>>>>> origin/master
 	players: Array<Player> = [];
 	sacrificePits: Array<SacrificePit> = [];
 	lambs: Array<Lamb> = [];
