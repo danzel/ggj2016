@@ -31,7 +31,7 @@ class Player {
 
 		game.physics.p2.enable(this.sprite, true);
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
-
+		(<any>this.body).player = this;
 		this.body.setCircle(30);
 		this.body.setZeroDamping();
 		this.body.fixedRotation = true;
@@ -40,9 +40,8 @@ class Player {
 		
 		//Be careful to put callback ones first (or don't put callback ones in the second array)
 		this.body.collides(Globals.lambCollisionGroup, this.lambCollision, this);
-		this.body.collides(Globals.pitCollisionGroup, this.pitCollision, this);
 		
-		this.body.collides([Globals.playerCollisionGroup]);
+		this.body.collides([Globals.playerCollisionGroup, Globals.pitCollisionGroup]);
 	}
 
 	lambCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
@@ -54,31 +53,19 @@ class Player {
 		}
 	}
 
-	pitCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
-		
-		while (this.followers.length > 0) {
-			var lamb = this.followers.pop();
-			
-			this.game.physics.p2.removeSpring(this.springs.pop());
-			
-			//TODO: move the lamb in to the pit instead
-			lamb.sprite.destroy(); //TODO: remove from lambs list too
-			
-			this.mana += 10; //TODO: different lambs give different amounts
-			if (this.mana > Player.maxMana) {
-				this.mana = Player.maxMana;
-			}
-			
-			Globals.lambSacrificed.trigger(lamb);
-		}
-	}
-	
 	lambSacrificed(lamb: Lamb) {
 		let index = this.followers.indexOf(lamb);
 		if (index != -1) {
 			this.followers.splice(index, 1);
 			this.game.physics.p2.removeSpring(this.springs[index]);
 			this.springs.splice(index, 1);
+		}
+	}
+	
+	addMana(amount: number) {
+		this.mana += amount;
+		if (this.mana > Player.maxMana) {
+			this.mana = Player.maxMana;
 		}
 	}
 
