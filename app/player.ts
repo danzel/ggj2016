@@ -9,6 +9,7 @@ import SacrificePit = require('./sacrificePit');
 class Player implements CombatUnit {
 	sprite: Phaser.Sprite;
 	body: Phaser.Physics.P2.Body;
+	graphics: Phaser.Graphics;
 
 	maxHealth = 100;
 	maxMana = 100;
@@ -53,6 +54,8 @@ class Player implements CombatUnit {
 		this.body.collides(Globals.lambCollisionGroup, this.lambCollision, this);
 
 		this.body.collides([Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup]);
+		
+		this.graphics = game.add.graphics(0, 0);
 	}
 
 	lambCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
@@ -137,6 +140,17 @@ class Player implements CombatUnit {
 			this.health += this.mana;
 			this.mana = 0;
 		}
+		
+		this.graphics.clear();
+		this.graphics.x = this.sprite.x - 25;
+		this.graphics.y = this.sprite.y - 45;
+		// health bar
+		const barWidth = 50;
+		var healthWidth = this.health / 100 * barWidth;
+		this.graphics.beginFill(0x60120B);
+		this.graphics.drawRoundedRect(0, 0, barWidth, 7, 1);
+		this.graphics.beginFill(0xE52C1B);
+		this.graphics.drawRoundedRect(0, 0, healthWidth, 7, 1);
 	}
 
 }
