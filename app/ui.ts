@@ -1,31 +1,48 @@
+import Player = require('./player');
+
 class Ui {
-	sprite: Phaser.Sprite;
+	game: Phaser.Game;
+	players: Array<Player>;
+	graphics: Phaser.Graphics;
 	
-	constructor(private game: Phaser.Game) {
-		var graphics = game.add.graphics(0, 0);
+	constructor(private gameArg: Phaser.Game, private playersArg: Array<Player>) {
+		this.game = gameArg;
+		this.players = playersArg;
+		this.graphics = this.game.add.graphics(0, 0);
+	}
+	
+	update() {
+		this.graphics.clear();
+		
+		const barWidth = 230;
+		var p1ManaWidth = this.players[0].mana / 100 * barWidth;
+		var p1HealthWidth = this.players[0].health / 100 * barWidth;
+		var p2ManaWidth = this.players[1].mana / 100 * barWidth;
+		var p2HealthWidth = this.players[1].health / 100 * barWidth;
+		
 		// player 1 mana
-		graphics.beginFill(0x191060);
-		graphics.drawRoundedRect(50, 30, 230, 25, 3);
-		graphics.beginFill(0x442BFF);
-		graphics.drawRoundedRect(50, 30, 150, 25, 3);
+		this.graphics.beginFill(0x191060);
+		this.graphics.drawRoundedRect(50, 20, barWidth, 25, 3);
+		this.graphics.beginFill(0x442BFF);
+		this.graphics.drawRoundedRect(50, 20, p1ManaWidth, 25, 3);
 
 		// player 1 health
-		graphics.beginFill(0x60120B);
-		graphics.drawRoundedRect(50, 70, 230, 25, 3);
-		graphics.beginFill(0xE52C1B);
-		graphics.drawRoundedRect(50, 70, 130, 25, 3);
+		this.graphics.beginFill(0x60120B);
+		this.graphics.drawRoundedRect(50, 60, barWidth, 25, 3);
+		this.graphics.beginFill(0xE52C1B);
+		this.graphics.drawRoundedRect(50, 60, p1HealthWidth, 25, 3);
 
 		// player 2 mana
-		graphics.beginFill(0x191060);
-		graphics.drawRoundedRect(1000, 30, 230, 25, 3);
-		graphics.beginFill(0x442BFF);
-		graphics.drawRoundedRect(1000 + 230 - 150, 30, 150, 25, 3);
+		this.graphics.beginFill(0x191060);
+		this.graphics.drawRoundedRect(1280 - 50 - barWidth, 20, barWidth, 25, 3);
+		this.graphics.beginFill(0x442BFF);
+		this.graphics.drawRoundedRect(1280 - 50 - p2ManaWidth, 20, p2ManaWidth, 25, 3);
 
 		// player 2 health
-		graphics.beginFill(0x60120B);
-		graphics.drawRoundedRect(1000, 70, 230, 25, 3);
-		graphics.beginFill(0xE52C1B);
-		graphics.drawRoundedRect(1000 + 230 - 130, 70, 130, 25, 3);
+		this.graphics.beginFill(0x60120B);
+		this.graphics.drawRoundedRect(1280 - 50 - barWidth, 60, barWidth, 25, 3);
+		this.graphics.beginFill(0xE52C1B);
+		this.graphics.drawRoundedRect(1280 - 50 - p2HealthWidth, 60, p2HealthWidth, 25, 3);
 	}
 }
 

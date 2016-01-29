@@ -44,7 +44,7 @@ class AppEntry {
 			this.lambs.push(new Lamb(this.game, 200 + (1280 - 200 - 200) * Math.random(), 720 * Math.random()));
 		}
 
-		this.ui = new Ui(this.game);
+		this.ui = new Ui(this.game, this.players);
 	}
 
 	update() {
@@ -52,6 +52,7 @@ class AppEntry {
 		for (let i = 0; i < this.players.length; i++) {
 			this.players[i].update();
 		}
+		this.ui.update();
 		//debugger;
 		//this.game.time.physicsElapsed
 	}
