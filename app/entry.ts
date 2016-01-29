@@ -2,6 +2,7 @@ import Globals = require('./globals');
 import Harvester = require('./harvester');
 import ImageLoader = require('./imageLoader');
 import Lamb = require('./lamb');
+import Materials = require('./materials');
 import Player = require('./player');
 import SacrificePit = require('./sacrificePit');
 import Ui = require('./ui');
@@ -29,6 +30,7 @@ class AppEntry {
 		this.game.physics.p2.setImpactEvents(true);
 		this.game.physics.p2.restitution = 0.8;
 		Globals.init(this.game);
+		Materials.init(this.game);
 		this.game.input.gamepad.start();
 		
 		this.game.add.sprite(0, 0, 'bg');

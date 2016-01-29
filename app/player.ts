@@ -3,6 +3,7 @@ import GameObject = require('./gameObject');
 import Globals = require('./globals');
 import Harvester = require('./harvester');
 import Lamb = require('./lamb');
+import Materials = require('./materials');
 import MeleeUnit = require('./meleeUnit');
 import SacrificePit = require('./sacrificePit');
 
@@ -41,6 +42,7 @@ class Player implements CombatUnit {
 
 		game.physics.p2.enable(this.sprite, true);
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
+		this.body.setMaterial(Materials.groundUnitMaterial);
 		(<any>this.body).player = this;
 		(<any>this.body).combatUnit = this;
 

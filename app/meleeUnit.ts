@@ -2,6 +2,7 @@ import CombatUnit = require('./combatUnit');
 import GameObject = require('./gameObject');
 import Globals = require('./globals');
 import Player = require('./player');
+import Materials = require('./materials');
 
 
 class MeleeUnit implements CombatUnit {
@@ -25,7 +26,7 @@ class MeleeUnit implements CombatUnit {
 		this.body.setCircle(20);
 		this.body.setZeroDamping();
 		this.body.fixedRotation = true;
-
+		this.body.setMaterial(Materials.groundUnitMaterial);
 
 		this.body.setCollisionGroup(Globals.groundCreatureCollisionGroup);
 		
