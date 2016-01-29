@@ -19,6 +19,8 @@ class Player extends CombatUnit {
 
 	private buttonA = false;
 	private buttonB = false;
+	private buttonX = false;
+	private buttonY = false;
 
 	constructor(private game: Phaser.Game, public id: number, private gamepad: Phaser.SinglePad) {
 		super(game, null, 100); //fuck can't use this here, CombatUnit fixes this
@@ -96,25 +98,43 @@ class Player extends CombatUnit {
 			let justA = !this.buttonA && nowA;
 			this.buttonA = nowA;
 
-
 			let nowB = this.gamepad.getButton(Phaser.Gamepad.XBOX360_B).isDown;
 			let justB = !this.buttonB && nowB;
 			this.buttonB = nowB;
 
+			let nowX = this.gamepad.getButton(Phaser.Gamepad.XBOX360_X).isDown;
+			let justX = !this.buttonX && nowX;
+			this.buttonX = nowX;
+
+			let nowY = this.gamepad.getButton(Phaser.Gamepad.XBOX360_Y).isDown;
+			let justY = !this.buttonY && nowY;
+			this.buttonY = nowY;
+
+			let spawnX = this.sprite.x + 70 * Math.sin((this.sprite.angle + 90) * Math.PI / 180);
+			let spawnY = this.sprite.y - 70 * Math.cos((this.sprite.angle + 90) * Math.PI / 180);
+
 			if (justA && this.mana >= 30) {
 				this.mana -= 30;
-				let spawnX = this.sprite.x + 70 * Math.sin((this.sprite.angle + 90) * Math.PI / 180);
-				let spawnY = this.sprite.y - 70 * Math.cos((this.sprite.angle + 90) * Math.PI / 180);
 				Globals.gameObjects.push(new Harvester(this.game, this, spawnX, spawnY));
 			}
 
 
 			if (justB && this.mana >= 30) {
 				this.mana -= 30;
-				let spawnX = this.sprite.x + 70 * Math.sin((this.sprite.angle + 90) * Math.PI / 180);
-				let spawnY = this.sprite.y - 70 * Math.cos((this.sprite.angle + 90) * Math.PI / 180);
 
 				Globals.gameObjects.push(new MeleeUnit(this.game, this, spawnX, spawnY));
+			}
+			
+			if (justX && this.mana >= 30) {
+				this.mana -= 30;
+
+				//TODO Globals.gameObjects.push(new MeleeUnit(this.game, this, spawnX, spawnY));
+			}
+
+			if (justY && this.mana >= 30) {
+				this.mana -= 30;
+
+				//TODO Globals.gameObjects.push(new MeleeUnit(this.game, this, spawnX, spawnY));
 			}
 		}
 		
