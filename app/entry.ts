@@ -2,9 +2,11 @@ import ImageLoader = require('./imageLoader');
 import Lamb = require('./lamb');
 import Player = require('./player');
 import SacrificePit = require('./sacrificePit');
+import Ui = require('./ui');
 
 class AppEntry {
 	game: Phaser.Game;
+	ui: Ui;
 	
 	players: Array<Player> = [];
 	sacrificePits: Array<SacrificePit> = [];
@@ -35,6 +37,9 @@ class AppEntry {
 		for (let i = 0; i < 100; i++) {
 			this.lambs.push(new Lamb(this.game, 200 + (1280 - 200 - 200) * Math.random(), 720 * Math.random()));
 		}
+		
+		this.ui = new Ui(this.game);
+		
 		
 	}
 
