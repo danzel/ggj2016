@@ -9,6 +9,7 @@ class Player {
 	health: number = 100;
 
 	followers: Array<Lamb> = [];
+	springs: Array<Phaser.Physics.P2.Spring> = [];
 	maxFollowers: number = 1;
 	
 	constructor(private game: Phaser.Game, public id: number, private gamepad: Phaser.SinglePad) {
@@ -32,16 +33,30 @@ class Player {
 		
 		//Be careful to put callback ones first (or don't put callback ones in the second array)
 		this.body.collides(Globals.lambCollisionGroup, this.lambCollision, this);
+		this.body.collides(Globals.pitCollisionGroup, this.pitCollision, this);
 		
-		this.body.collides([Globals.playerCollisionGroup, Globals.pitCollisionGroup]);
+		this.body.collides([Globals.playerCollisionGroup]);
 	}
 
 	lambCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
-		
 		if (this.followers.length < this.maxFollowers) {
 			this.followers.push((<any>body2.sprite).lamb);
 			
-			this.game.physics.p2.createSpring(body1, body2, 60, 50, 0.2);
+			this.springs.push(this.game.physics.p2.createSpring(body1, body2, 60, 50, 0.2));
+		}
+	}
+
+	pitCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
+		
+		while (this.followers.length > 0) {
+			var lamb = this.followers.pop();
+			
+			this.game.physics.p2.removeSpring(this.springs.pop());
+			
+			//TODO: move the lamb in to the pit instead
+			lamb.sprite.destroy(); //TODO: remove from lambs list too
+			
+			this.mana += 10; //TODO: different lambs give different amounts
 		}
 	}
 

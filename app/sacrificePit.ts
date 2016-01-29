@@ -24,15 +24,7 @@ class SacrificePit {
 		this.sprite.body.static = true;
 
 		this.body.setCollisionGroup(Globals.pitCollisionGroup);
-		this.body.collides(Globals.lambCollisionGroup, this.lambCollision, this);
-		this.body.collides([Globals.playerCollisionGroup]);
-	}
-
-
-	lambCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
-		console.log('r3qwwatrwaerwaer');
-		//debugger;
-		//TODO
+		this.body.collides([Globals.playerCollisionGroup, Globals.lambCollisionGroup]);
 	}
 }
 

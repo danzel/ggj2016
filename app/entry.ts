@@ -30,6 +30,8 @@ class AppEntry {
 		this.game.physics.p2.restitution = 0.8;
 		Globals.init(this.game);
 		this.game.input.gamepad.start();
+		
+		this.game.add.sprite(0, 0, 'bg');
 
 		this.players.push(new Player(this.game, 1, this.game.input.gamepad.pad1));
 		this.players.push(new Player(this.game, 2, this.game.input.gamepad.pad2));
