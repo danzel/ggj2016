@@ -7,16 +7,10 @@ import Materials = require('./materials');
 import MeleeUnit = require('./meleeUnit');
 import SacrificePit = require('./sacrificePit');
 
-class Player implements CombatUnit {
-	sprite: Phaser.Sprite;
-	body: Phaser.Physics.P2.Body;
-	graphics: Phaser.Graphics;
-
-	maxHealth = 100;
-	maxMana = 100;
+class Player extends CombatUnit {
+	maxMana: number = 100;
 
 	mana: number = 50;
-	health: number = 100;
 
 	sacrificePit: SacrificePit;
 	followers: Array<Lamb> = [];
@@ -27,6 +21,9 @@ class Player implements CombatUnit {
 	private buttonB = false;
 
 	constructor(private game: Phaser.Game, public id: number, private gamepad: Phaser.SinglePad) {
+		super(game);
+		this.health = 100;
+		this.maxHealth = 100;
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
 		if (id == 1) {
@@ -56,8 +53,6 @@ class Player implements CombatUnit {
 		this.body.collides(Globals.lambCollisionGroup, this.lambCollision, this);
 
 		this.body.collides([Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup]);
-		
-		this.graphics = game.add.graphics(0, 0);
 	}
 
 	lambCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
@@ -143,16 +138,7 @@ class Player implements CombatUnit {
 			this.mana = 0;
 		}
 		
-		this.graphics.clear();
-		this.graphics.x = this.sprite.x - 25;
-		this.graphics.y = this.sprite.y - 45;
-		// health bar
-		const barWidth = 50;
-		var healthWidth = this.health / 100 * barWidth;
-		this.graphics.beginFill(0x60120B);
-		this.graphics.drawRoundedRect(0, 0, barWidth, 7, 1);
-		this.graphics.beginFill(0xE52C1B);
-		this.graphics.drawRoundedRect(0, 0, healthWidth, 7, 1);
+		super.update();
 	}
 
 }

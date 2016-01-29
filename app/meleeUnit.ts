@@ -5,7 +5,7 @@ import Player = require('./player');
 import Materials = require('./materials');
 
 
-class MeleeUnit implements CombatUnit {
+class MeleeUnit extends CombatUnit {
 	sprite: Phaser.Sprite;
 	body: Phaser.Physics.P2.Body;
 
@@ -15,6 +15,7 @@ class MeleeUnit implements CombatUnit {
 	collidingWith: Array<CombatUnit> = [];
 
 	constructor(private game: Phaser.Game, private player: Player, x: number, y: number) {
+		super(game);
 
 		this.sprite = game.add.sprite(x, y);
 		this.sprite.anchor.x = 0.5;
@@ -91,6 +92,8 @@ class MeleeUnit implements CombatUnit {
 				c.sprite.destroy(); //TODO: effect
 			}
 		}
+		
+		super.update();
 	}
 }
 export = MeleeUnit;
