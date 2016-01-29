@@ -1,3 +1,4 @@
+import MeleeUnit = require('./meleeUnit');
 import GameObject = require('./gameObject');
 import Globals = require('./globals');
 import Harvester = require('./harvester');
@@ -10,7 +11,7 @@ class Player implements GameObject {
 
 	static maxHealth = 100;
 	static maxMana = 100;
-	
+
 	mana: number = 50;
 	health: number = 100;
 
@@ -18,12 +19,13 @@ class Player implements GameObject {
 	followers: Array<Lamb> = [];
 	springs: Array<Phaser.Physics.P2.Spring> = [];
 	maxFollowers: number = 1;
-	
+
 	private buttonA = false;
-	
+	private buttonB = false;
+
 	constructor(private game: Phaser.Game, public id: number, private gamepad: Phaser.SinglePad) {
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
-		
+
 		if (id == 1) {
 			this.sprite = game.add.sprite(100, 300, 'player2');
 		} else {
@@ -38,6 +40,8 @@ class Player implements GameObject {
 		game.physics.p2.enable(this.sprite, true);
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
 		(<any>this.body).player = this;
+		(<any>this.body).combatUnit = this;
+
 		this.body.setCircle(30);
 		this.body.setZeroDamping();
 		this.body.fixedRotation = true;
@@ -46,7 +50,7 @@ class Player implements GameObject {
 		
 		//Be careful to put callback ones first (or don't put callback ones in the second array)
 		this.body.collides(Globals.lambCollisionGroup, this.lambCollision, this);
-		
+
 		this.body.collides([Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup]);
 	}
 
@@ -55,7 +59,7 @@ class Player implements GameObject {
 		if (!lamb.beingDragged && this.followers.length < this.maxFollowers && this.followers.indexOf(lamb) == -1) {
 			lamb.beingDragged = true;
 			this.followers.push(lamb);
-			
+
 			this.springs.push(this.game.physics.p2.createSpring(body1, body2, 45, 100, 0.7));
 		}
 	}
@@ -68,7 +72,7 @@ class Player implements GameObject {
 			this.springs.splice(index, 1);
 		}
 	}
-	
+
 	addMana(amount: number) {
 		this.mana += amount;
 		if (this.mana > Player.maxMana) {
@@ -79,7 +83,7 @@ class Player implements GameObject {
 	update() {
 		//TODO: this means the player always has really good control, if we want them to be pushed around this won't work.
 		this.body.setZeroVelocity();
-		
+
 		let x = this.gamepad.axis(0);
 		let y = this.gamepad.axis(1);
 		this.body.moveRight(x * 400);
@@ -90,17 +94,31 @@ class Player implements GameObject {
 			var angle = Math.atan2(y, x) * 180 / Math.PI;
 			this.sprite.angle = angle;
 		}
-		
+
 		if (this.gamepad.connected) {
 			let nowA = this.gamepad.getButton(Phaser.Gamepad.XBOX360_A).isDown;
 			let justA = !this.buttonA && nowA;
 			this.buttonA = nowA;
-			
-			if (justA && this.mana >= 30) {
+
+
+			let nowB = this.gamepad.getButton(Phaser.Gamepad.XBOX360_B).isDown;
+			let justB = !this.buttonB && nowB;
+			this.buttonB = nowB;
+
+			if (justA && this.mana >= 1) {
 				this.mana -= 30;
 				let spawnX = this.sprite.x + 70 * Math.sin((this.sprite.angle + 90) * Math.PI / 180);
 				let spawnY = this.sprite.y - 70 * Math.cos((this.sprite.angle + 90) * Math.PI / 180);
 				Globals.gameObjects.push(new Harvester(this.game, this, spawnX, spawnY));
+			}
+
+
+			if (justB && this.mana >= 30) {
+				this.mana -= 30;
+				let spawnX = this.sprite.x + 70 * Math.sin((this.sprite.angle + 90) * Math.PI / 180);
+				let spawnY = this.sprite.y - 70 * Math.cos((this.sprite.angle + 90) * Math.PI / 180);
+
+				Globals.gameObjects.push(new MeleeUnit(this.game, this, spawnX, spawnY));
 			}
 		}
 		
