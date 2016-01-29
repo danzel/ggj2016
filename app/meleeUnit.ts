@@ -6,16 +6,15 @@ import Materials = require('./materials');
 
 
 class MeleeUnit extends CombatUnit {
-	sprite: Phaser.Sprite;
-	body: Phaser.Physics.P2.Body;
-
 	health: number = 40;
 	maxHealth: number = 40;
 
 	collidingWith: Array<CombatUnit> = [];
+	
+	target: CombatUnit;
 
-	constructor(private game: Phaser.Game, private player: Player, x: number, y: number) {
-		super(game);
+	constructor(private game: Phaser.Game, player: Player, x: number, y: number) {
+		super(game, player);
 
 		this.sprite = game.add.sprite(x, y);
 		this.sprite.anchor.x = 0.5;
@@ -47,7 +46,7 @@ class MeleeUnit extends CombatUnit {
 		if (!bodyA) {
 			return;
 		}
-		
+
 		let combatUnit = <CombatUnit>(<any>bodyA).combatUnit;
 		if (combatUnit) {
 			this.collidingWith.push(combatUnit);
@@ -72,6 +71,12 @@ class MeleeUnit extends CombatUnit {
 	}
 
 	update() {
+		this.updateCollisionsAndDamage();
+		
+		this.updateMovement();
+	}
+
+	updateCollisionsAndDamage() {
 		for (let i = this.collidingWith.length - 1; i >= 0; i--) {
 			if (!this.collidingWith[i].body.sprite.alive) {
 				this.collidingWith.splice(i, 1);
@@ -83,7 +88,7 @@ class MeleeUnit extends CombatUnit {
 
 			for (let i = this.collidingWith.length - 1; i >= 0; i--) {
 				let c = this.collidingWith[i];
-				
+
 				c.health -= damage;
 				if (c.health <= 0) {
 					c.sprite.destroy(); //TODO: effect
@@ -92,6 +97,53 @@ class MeleeUnit extends CombatUnit {
 		}
 		
 		super.update();
+	}
+	
+	updateMovement() {
+		
+		if (this.target && !this.target.sprite.alive) {
+			this.target = null;
+		}
+		
+		this.performTargetUpdateIfRequired();
+
+		
+	}
+
+	private lastTargetCheckTime: number;
+	performTargetUpdateIfRequired() {
+		let needUpdate = false;
+		
+		if (this.game.time.now - this.lastTargetCheckTime > 500) {
+			needUpdate = true;
+		} else if (!this.target) {
+			needUpdate = true;
+		}
+		
+		if (!needUpdate) {
+			return;
+		}
+		
+		let minDist = 9999999999;
+		
+		for (let i = 0; i < Globals.gameObjects.length; i++) {
+			let o = Globals.gameObjects[i];
+			
+			if (!(o instanceof CombatUnit)) {
+				return;
+			}
+			let cu = <CombatUnit>o;
+			
+			//target filtering
+			
+			
+			
+			let dist = this.distanceTo(cu);
+			if (dist < minDist) {
+				this.target = cu;
+				minDist = dist;
+			}
+		}
 	}
 }
 export = MeleeUnit;
