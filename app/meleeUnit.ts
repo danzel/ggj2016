@@ -13,7 +13,7 @@ class MeleeUnit extends CombatUnit {
 	constructor(private game: Phaser.Game, player: Player, x: number, y: number) {
 		super(game, player, 40);
 
-		this.sprite = game.add.sprite(x, y);
+		this.sprite = game.add.sprite(x, y, 'warrior2');
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
 
@@ -75,7 +75,7 @@ class MeleeUnit extends CombatUnit {
 
 	updateCollisionsAndDamage() {
 		for (let i = this.collidingWith.length - 1; i >= 0; i--) {
-			if (!this.collidingWith[i].body.sprite.alive) {
+			if (!this.collidingWith[i].body.sprite || !this.collidingWith[i].body.sprite.alive) {
 				this.collidingWith.splice(i, 1);
 			}
 		}

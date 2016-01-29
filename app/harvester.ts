@@ -20,8 +20,9 @@ class Harvester extends CombatUnit {
 		game.physics.p2.enable(this.sprite, true);
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
 		(<any>this.body).harvester = this;
+		(<any>this.body).combatUnit = this;
 		this.body.setCircle(20);
-		this.body.setZeroDamping();
+		this.body.damping = 0.7;
 		this.body.fixedRotation = true;
 
 

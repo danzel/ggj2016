@@ -46,7 +46,10 @@ class CombatUnit implements GameObject {
 			this.sprite.destroy(); //TODO: effect
 			this.graphics.destroy();
 		}
-
+	}
+	
+	onDead() {
+		//Override in child classes
 	}
 }
 

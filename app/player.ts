@@ -105,7 +105,7 @@ class Player extends CombatUnit {
 			let justB = !this.buttonB && nowB;
 			this.buttonB = nowB;
 
-			if (justA && this.mana >= 1) {
+			if (justA && this.mana >= 30) {
 				this.mana -= 30;
 				let spawnX = this.sprite.x + 70 * Math.sin((this.sprite.angle + 90) * Math.PI / 180);
 				let spawnY = this.sprite.y - 70 * Math.cos((this.sprite.angle + 90) * Math.PI / 180);
