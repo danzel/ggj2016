@@ -71,6 +71,8 @@ class SummonedUnit extends CombatUnit {
 		this.updateCollisionsAndDamage();
 
 		this.updateMovement();
+
+		super.update();
 	}
 
 	updateCollisionsAndDamage() {
@@ -89,8 +91,6 @@ class SummonedUnit extends CombatUnit {
 				c.takeDamage(damage);
 			}
 		}
-
-		super.update();
 	}
 
 	updateMovement() {
