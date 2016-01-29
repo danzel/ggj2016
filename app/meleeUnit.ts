@@ -6,15 +6,12 @@ import Materials = require('./materials');
 
 
 class MeleeUnit extends CombatUnit {
-	health: number = 40;
-	maxHealth: number = 40;
-
 	collidingWith: Array<CombatUnit> = [];
 	
 	target: CombatUnit;
 
 	constructor(private game: Phaser.Game, player: Player, x: number, y: number) {
-		super(game, player);
+		super(game, player, 40);
 
 		this.sprite = game.add.sprite(x, y);
 		this.sprite.anchor.x = 0.5;

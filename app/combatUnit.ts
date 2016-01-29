@@ -9,9 +9,11 @@ class CombatUnit implements GameObject {
 	body: Phaser.Physics.P2.Body;
 	player: Player;
 
-	constructor(game: Phaser.Game, player: Player) {
+	constructor(game: Phaser.Game, player: Player, maxHealth: number) {
 		this.graphics = game.add.graphics(0, 0);
 		this.player = player || (<Player><any>this);
+		this.maxHealth = maxHealth;
+		this.health = this.maxHealth;
 		
 		//if (!(this.player instanceof Player)) {
 		//	debugger; //you fucked up
@@ -33,9 +35,9 @@ class CombatUnit implements GameObject {
 		const barWidth = 50;
 		var healthWidth = this.health / this.maxHealth * barWidth;
 		this.graphics.beginFill(0x60120B);
-		this.graphics.drawRoundedRect(0, 0, barWidth, 7, 1);
+		this.graphics.drawRect(0, 0, barWidth, 7);
 		this.graphics.beginFill(0xE52C1B);
-		this.graphics.drawRoundedRect(0, 0, healthWidth, 7, 1);
+		this.graphics.drawRect(0, 0, healthWidth, 7);
 	}
 }
 

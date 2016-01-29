@@ -21,10 +21,8 @@ class Player extends CombatUnit {
 	private buttonB = false;
 
 	constructor(private game: Phaser.Game, public id: number, private gamepad: Phaser.SinglePad) {
-		super(game, null); //fuck can't use this here, CombatUnit fixes this
+		super(game, null, 100); //fuck can't use this here, CombatUnit fixes this
 		
-		this.health = 100;
-		this.maxHealth = 100;
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
 		if (id == 1) {
