@@ -13,7 +13,8 @@ class Player {
 	maxFollowers: number = 1;
 	
 	constructor(private game: Phaser.Game, public id: number, private gamepad: Phaser.SinglePad) {
-
+		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
+		
 		if (id == 1) {
 			this.sprite = game.add.sprite(100, 300);
 		} else {
@@ -58,6 +59,18 @@ class Player {
 			lamb.sprite.destroy(); //TODO: remove from lambs list too
 			
 			this.mana += 10; //TODO: different lambs give different amounts
+			
+			
+			Globals.lambSacrificed.trigger(lamb);
+		}
+	}
+	
+	lambSacrificed(lamb: Lamb) {
+		let index = this.followers.indexOf(lamb);
+		if (index != -1) {
+			this.followers.splice(index, 1);
+			this.game.physics.p2.removeSpring(this.springs[index]);
+			this.springs.splice(index, 1);
 		}
 	}
 
