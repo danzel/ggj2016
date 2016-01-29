@@ -1,16 +1,17 @@
-import MeleeUnit = require('./meleeUnit');
+import CombatUnit = require('./combatUnit');
 import GameObject = require('./gameObject');
 import Globals = require('./globals');
 import Harvester = require('./harvester');
 import Lamb = require('./lamb');
+import MeleeUnit = require('./meleeUnit');
 import SacrificePit = require('./sacrificePit');
 
-class Player implements GameObject {
+class Player implements CombatUnit {
 	sprite: Phaser.Sprite;
 	body: Phaser.Physics.P2.Body;
 
-	static maxHealth = 100;
-	static maxMana = 100;
+	maxHealth = 100;
+	maxMana = 100;
 
 	mana: number = 50;
 	health: number = 100;
@@ -75,8 +76,8 @@ class Player implements GameObject {
 
 	addMana(amount: number) {
 		this.mana += amount;
-		if (this.mana > Player.maxMana) {
-			this.mana = Player.maxMana;
+		if (this.mana > this.maxMana) {
+			this.mana = this.maxMana;
 		}
 	}
 
