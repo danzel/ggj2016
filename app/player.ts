@@ -47,12 +47,13 @@ class Player implements GameObject {
 		//Be careful to put callback ones first (or don't put callback ones in the second array)
 		this.body.collides(Globals.lambCollisionGroup, this.lambCollision, this);
 		
-		this.body.collides([Globals.playerCollisionGroup, Globals.pitCollisionGroup]);
+		this.body.collides([Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup]);
 	}
 
 	lambCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
-		let lamb = <Lamb>(<any>body2.sprite).lamb;
-		if (this.followers.length < this.maxFollowers && this.followers.indexOf(lamb) == -1) {
+		let lamb = <Lamb>(<any>body2).lamb;
+		if (!lamb.beingDragged && this.followers.length < this.maxFollowers && this.followers.indexOf(lamb) == -1) {
+			lamb.beingDragged = true;
 			this.followers.push(lamb);
 			
 			this.springs.push(this.game.physics.p2.createSpring(body1, body2, 45, 100, 0.7));

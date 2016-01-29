@@ -8,6 +8,8 @@ import Globals = require('./globals');
 class Lamb implements GameObject {
 	sprite: Phaser.Sprite;
 	body: Phaser.Physics.P2.Body;
+	
+	beingDragged: boolean;
 
 	constructor(private game: Phaser.Game, x: number, y: number) { //TODO: Type
 		
@@ -26,10 +28,10 @@ class Lamb implements GameObject {
 
 
 		this.body.setCollisionGroup(Globals.lambCollisionGroup);
-		this.body.collides([Globals.playerCollisionGroup, Globals.lambCollisionGroup, Globals.pitCollisionGroup]);
+		this.body.collides([Globals.playerCollisionGroup, Globals.lambCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup]);
 
 		//TODO: When we collide with the pit we need to get collected too
-		(<any>this.sprite).lamb = this;
+		(<any>this.body).lamb = this;
 	}
 	
 	update() {

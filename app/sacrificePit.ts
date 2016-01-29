@@ -1,5 +1,7 @@
 import GameObject = require('./gameObject');
 import Globals = require('./globals');
+import Harvester = require('./harvester');
+import Lamb = require('./lamb');
 import Player = require('./player');
 
 class SacrificePit implements GameObject {
@@ -28,6 +30,7 @@ class SacrificePit implements GameObject {
 
 		this.body.setCollisionGroup(Globals.pitCollisionGroup);
 		this.body.collides(Globals.playerCollisionGroup, this.playerCollision, this);
+		this.body.collides(Globals.groundCreatureCollisionGroup, this.groundCreatureCollision, this);
 
 
 		this.body.collides([Globals.playerCollisionGroup, Globals.lambCollisionGroup]);
@@ -38,16 +41,30 @@ class SacrificePit implements GameObject {
 
 		for (let i = player.followers.length - 1; i >= 0; i--) {
 			var lamb = player.followers[i];
-			
-			//TODO: move the lamb in to the pit instead
-			lamb.sprite.destroy(); //TODO: remove from lambs list too (handled in entry update ATM)
-			
-			player.addMana(10);
 
-			Globals.lambSacrificed.trigger(lamb);
+			this.eatLamb(lamb);
 		}
 	}
 
+	groundCreatureCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
+		if ((<any>body2).harvester) {
+			let harvester = <Harvester>(<any>body2).harvester;
+			
+			if (harvester.target && harvester.isDraggingTarget) {
+				this.eatLamb(harvester.target);
+			}
+		}
+	}
+
+	private eatLamb(lamb: Lamb) {
+		//TODO: move the lamb in to the pit instead
+		lamb.sprite.destroy(); //TODO: remove from lambs list too (handled in entry update ATM)
+			
+		this.player.addMana(10);
+
+		Globals.lambSacrificed.trigger(lamb);
+
+	}
 	update() {
 
 	}
