@@ -9,15 +9,17 @@ class SacrificePit {
 		//TODO: body and position based on player id
 		
 		if (player.id == 1) {
-			this.sprite = game.add.sprite(50, 720 / 2); //TODO graphic
+			this.sprite = game.add.sprite(50, 720 / 2, 'altar2');
 		} else {
-			this.sprite = game.add.sprite(1280 - 50, 720 / 2); //TODO: Grpahiuc
+			this.sprite = game.add.sprite(1280 - 50, 720 / 2, 'altar2'); //TODO: Grpahiuc
 		}
+			this.sprite.smoothed = false;
+			this.sprite.scale.set(1.5);
 
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
 
-		game.physics.p2.enable(this.sprite, true);
+		game.physics.p2.enable(this.sprite, false);
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
 
 		this.sprite.body.setCircle(50);

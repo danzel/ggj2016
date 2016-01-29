@@ -84,6 +84,15 @@ class Player {
 
 		//this.sprite.body.force.x = this.gamepad.axis(0) * 100;
 		//this.sprite.body.force.y = this.gamepad.axis(1) * 100;
+		
+		
+		this.mana -= this.game.time.physicsElapsed * 10;
+		if (this.mana < 0) {
+			
+			//TODO: gods are angry at you
+			this.health += this.mana;
+			this.mana = 0;
+		}
 	}
 
 }
