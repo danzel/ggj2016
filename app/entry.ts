@@ -1,12 +1,14 @@
 import ImageLoader = require('./imageLoader');
+import Lamb = require('./lamb');
 import Player = require('./player');
 import SacrificePit = require('./sacrificePit');
 
 class AppEntry {
 	game: Phaser.Game;
+	
 	players: Array<Player> = [];
 	sacrificePits: Array<SacrificePit> = [];
-	
+	lambs: Array<Lamb> = [];
 	
 	constructor() {
 		this.game = new Phaser.Game(1280, 720, Phaser.AUTO, '', this, false, true, null);
@@ -29,7 +31,10 @@ class AppEntry {
 		this.sacrificePits.push(new SacrificePit(this.game, this.players[0]));
 		this.sacrificePits.push(new SacrificePit(this.game, this.players[1]));
 		
-		this.game.add.sprite(10, 10, 'test');
+		
+		for (let i = 0; i < 100; i++) {
+			this.lambs.push(new Lamb(this.game, 200 + (1280 - 200 - 200) * Math.random(), 720 * Math.random()));
+		}
 		
 	}
 

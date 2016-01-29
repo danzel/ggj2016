@@ -8,9 +8,9 @@ class Player {
 	constructor(private game: Phaser.Game, public id: number, private gamepad: Phaser.SinglePad) {
 
 		if (id == 1) {
-			this.sprite = game.add.sprite(100, 300, 'test');
+			this.sprite = game.add.sprite(100, 300);
 		} else {
-			this.sprite = game.add.sprite(1280 - 100, 300, 'test');
+			this.sprite = game.add.sprite(1280 - 100, 300);
 		}
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;

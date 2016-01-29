@@ -7,9 +7,9 @@ class SacrificePit {
 		//TODO: body and position based on player id
 		
 		if (player.id == 1) {
-			this.sprite = game.add.sprite(50, 720 / 2, 'test');
+			this.sprite = game.add.sprite(50, 720 / 2); //TODO graphic
 		} else {
-			this.sprite = game.add.sprite(1280 - 50, 720 / 2, 'test');
+			this.sprite = game.add.sprite(1280 - 50, 720 / 2); //TODO: Grpahiuc
 		}
 		
 		this.sprite.anchor.x = 0.5;
