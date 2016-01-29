@@ -1,3 +1,6 @@
+import Globals = require('./globals');
+
+
 //Note: Not an actual lamb
 
 
@@ -15,6 +18,9 @@ class Lamb {
 
 		this.body.setCircle(20);
 		this.body.damping = 0.9;
+
+		this.body.setCollisionGroup(Globals.lambCollisionGroup);
+		this.body.collides([Globals.playerCollisionGroup, Globals.lambCollisionGroup, Globals.pitCollisionGroup]);
 
 	}
 }
