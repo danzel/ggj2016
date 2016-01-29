@@ -1,0 +1,6 @@
+{
+  "devDependencies": {},
+  "ambientDependencies": {
+    "webpack": "github:DefinitelyTyped/DefinitelyTyped/webpack/webpack.d.ts#51868917c7480cc6b1187a59bbd0120effa29841"
+  }
+}
