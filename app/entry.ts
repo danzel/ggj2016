@@ -52,6 +52,18 @@ class AppEntry {
 		for (let i = 0; i < this.players.length; i++) {
 			this.players[i].update();
 		}
+		
+		for (let i = 0; i < this.lambs.length; i++) {
+			//tidy up
+			if (!this.lambs[i].sprite.alive) {
+				this.lambs.splice(i, 1);
+				continue;
+			}
+			
+			this.lambs[i].update();
+		}
+		
+		
 		this.ui.update();
 		//debugger;
 		//this.game.time.physicsElapsed
