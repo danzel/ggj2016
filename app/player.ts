@@ -50,7 +50,7 @@ class Player {
 		if (this.followers.length < this.maxFollowers && this.followers.indexOf(lamb) == -1) {
 			this.followers.push(lamb);
 			
-			this.springs.push(this.game.physics.p2.createSpring(body1, body2, 50, 50, 0.2));
+			this.springs.push(this.game.physics.p2.createSpring(body1, body2, 45, 100, 0.7));
 		}
 	}
 
