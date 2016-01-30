@@ -9,6 +9,8 @@ class Harvester extends CombatUnit {
 	isDraggingTarget: boolean;
 	targetSpring: Phaser.Physics.P2.Spring;
 
+	shadow: Phaser.Sprite;
+
 	constructor(private game: Phaser.Game, player: Player, x: number, y: number) {
 		super(game, player, 20, player.id);
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
@@ -16,6 +18,13 @@ class Harvester extends CombatUnit {
 		this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, x, y, 'harvester' + player.id));
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
+		
+		this.shadow = new Phaser.Sprite(game, x, y, 'shadow-harvester');
+		this.shadow.anchor.x = 0.5;
+		this.shadow.anchor.y = 0.5;
+		this.shadow.alpha = 0.5;
+		Globals.layerGround.addAt(this.shadow, 0);
+
 
 		game.physics.p2.enable(this.sprite);
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
@@ -80,6 +89,10 @@ class Harvester extends CombatUnit {
 			this.body.applyForce([-xDiff * force, -yDiff * force], 0, 0);
 			this.rotateSprite(-xDiff, -yDiff);
 		}
+
+		this.shadow.angle = this.sprite.angle;
+		this.shadow.x = this.sprite.x + 3;
+		this.shadow.y = this.sprite.y + 3;
 		
 		super.update();
 	}
@@ -105,6 +118,10 @@ class Harvester extends CombatUnit {
 	}
 	
 	onDead() {
+		super.onDead();
+		if (this.shadow) {
+			this.shadow.destroy();
+		}
 		this.lambSacrificed(this.target);
 	}
 }

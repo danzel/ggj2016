@@ -21,6 +21,8 @@ class Player extends CombatUnit {
 	springs: Array<Phaser.Physics.P2.Spring> = [];
 	maxFollowers: number = 1;
 
+	shadow: Phaser.Sprite;
+
 	gamepad: Phaser.SinglePad;
 	private buttonA = false;
 	private buttonB = false;
@@ -46,6 +48,14 @@ class Player extends CombatUnit {
 
 		this.sprite.smoothed = false;
 		this.sprite.scale.set(1.2);
+
+		this.shadow = new Phaser.Sprite(game, this.sprite.x, this.sprite.y, 'shadow-player');
+		this.shadow.anchor.x = 0.5;
+		this.shadow.anchor.y = 0.5;
+		this.shadow.alpha = 0.5;
+		Globals.layerGround.addAt(this.shadow, 0);
+		this.shadow.scale.set(1.2);
+
 
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
@@ -104,6 +114,10 @@ class Player extends CombatUnit {
 		this.body.moveDown(y * 400);
 
 		this.rotateSprite(x, y);
+
+		this.shadow.angle = this.sprite.angle;
+		this.shadow.x = this.sprite.x + 3;
+		this.shadow.y = this.sprite.y + 3;
 
 		if (this.gamepad.connected) {
 			let nowA = this.gamepad.getButton(Phaser.Gamepad.XBOX360_A).isDown;

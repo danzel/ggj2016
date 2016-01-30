@@ -21,7 +21,8 @@ class ShootingUnit extends SummonedUnit {
 			layer: Globals.layerGround,
 			collisionGroup: Globals.groundCreatureCollisionGroup,
 			collidesWith: [Globals.lambCollisionGroup, Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup, Globals.flyingSensorCollisionGroup],
-			sprite: 'thrower' + player.id
+			sprite: 'thrower' + player.id,
+			shadow: { sprite: 'shadow-thrower', x: 3, y: 3 }
 		});
 	}
 

@@ -1,3 +1,9 @@
+interface ShadowDef {
+	x: number,
+	y: number,
+	sprite: string
+}
+
 interface SummonedUnitDef {
 	//If set we are a capsule
 	capsuleLength?: number;
@@ -15,6 +21,8 @@ interface SummonedUnitDef {
 	collidesWith: Array<Phaser.Physics.P2.CollisionGroup>;
 	
 	sprite: string;
+	
+	shadow?: ShadowDef;
 }
 
 export = SummonedUnitDef;

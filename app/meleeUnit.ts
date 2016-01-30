@@ -17,7 +17,8 @@ class MeleeUnit extends SummonedUnit {
 			layer: Globals.layerGround,
 			collisionGroup: Globals.groundCreatureCollisionGroup,
 			collidesWith: [Globals.lambCollisionGroup, Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup, Globals.flyingSensorCollisionGroup],
-			sprite: 'warrior' + player.id
+			sprite: 'warrior' + player.id,
+			shadow: { sprite: 'shadow-warrior', x: 3, y: 3 }
 		});
 	}
 }

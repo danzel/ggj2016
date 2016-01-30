@@ -9,6 +9,7 @@ import SummonedUnitDef = require('./summonedUnitDef');
 class SummonedUnit extends CombatUnit {
 	collidingWith: Array<CombatUnit> = [];
 
+	shadow: Phaser.Sprite;
 	target: CombatUnit;
 
 	constructor(protected game: Phaser.Game, player: Player, x: number, y: number, protected def: SummonedUnitDef) {
@@ -17,6 +18,14 @@ class SummonedUnit extends CombatUnit {
 		this.sprite = def.layer.add(new Phaser.Sprite(game, x, y, def.sprite));
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
+
+		if (def.shadow) {
+			this.shadow = new Phaser.Sprite(game, x, y, def.shadow.sprite);
+			this.shadow.anchor.x = 0.5;
+			this.shadow.anchor.y = 0.5;
+			this.shadow.alpha = 0.5;
+			def.layer.addAt(this.shadow, 0);
+		}
 
 		game.physics.p2.enable(this.sprite); //DEBUG ON HERE
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
@@ -80,6 +89,11 @@ class SummonedUnit extends CombatUnit {
 
 		this.updateMovement();
 
+		if (this.shadow) {
+			this.shadow.angle = this.sprite.angle;
+			this.shadow.x = this.sprite.x + this.def.shadow.x;
+			this.shadow.y = this.sprite.y + this.def.shadow.y;
+		}
 		super.update();
 	}
 
@@ -178,6 +192,14 @@ class SummonedUnit extends CombatUnit {
 			return false;
 		}
 		return true;
+	}
+	
+	onDead() {
+		super.onDead();
+		
+		if (this.shadow) {
+			this.shadow.destroy();
+		}
 	}
 }
 export = SummonedUnit;

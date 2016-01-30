@@ -17,10 +17,12 @@ class SpamUnit extends SummonedUnit {
 			layer: Globals.layerGround,
 			collisionGroup: Globals.groundCreatureCollisionGroup,
 			collidesWith: [Globals.lambCollisionGroup, Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup, Globals.flyingSensorCollisionGroup],
-			sprite: 'spam' + player.id
+			sprite: 'spam' + player.id,
+			shadow: { sprite: 'shadow-spam', x: 2, y: 2 }
 		});
 
 		this.sprite.scale.set(0.5);
+		this.shadow.scale.set(0.5);
 	}
 }
 

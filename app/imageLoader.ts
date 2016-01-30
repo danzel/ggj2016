@@ -22,11 +22,19 @@ class ImageLoader {
 		game.load.image('spam2', 'img/creeps/t2-shoal.png');
 		game.load.image('thrower2', 'img/creeps/t2-thrower.png');
 		
-		game.load.image('flyingshadow', 'img/harpyshadow.png');
+		game.load.image('shadow-flying', 'img/shadows/harpy.png');
+		game.load.image('shadow-player', 'img/shadows/monarch.png');
+		game.load.image('shadow-spam', 'img/shadows/shoal.png');
+		game.load.image('shadow-tank', 'img/shadows/tank.png');
+		game.load.image('shadow-harvester', 'img/shadows/thrall.png');
+		game.load.image('shadow-thrower', 'img/shadows/thrower.png');
+		game.load.image('shadow-warrior', 'img/shadows/warrior.png');
+		
 		game.load.image('blood', 'img/blood.png');
 		game.load.image('shot', 'img/shot.png');
 		
 		game.load.spritesheet('sheeple-walk', 'img/sheeple-w.png', 32, 32, 2);
+		game.load.image('shadow-sheeple', 'img/shadows/sheeple.png');
 	}
 }
 

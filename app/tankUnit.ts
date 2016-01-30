@@ -19,6 +19,7 @@ class TankUnit extends SummonedUnit {
 			collisionGroup: Globals.groundCreatureCollisionGroup,
 			collidesWith: [Globals.lambCollisionGroup, Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup, Globals.flyingSensorCollisionGroup],
 			sprite: 'tank' + player.id,
+			shadow: { sprite: 'shadow-tank', x: 3, y: 3 }
 		});
 	}
 }
