@@ -19,19 +19,18 @@ class Ui {
 		this.game = game;
 		this.players = players;
 		
-		this.game.add.sprite(0, 0, 'healthmanabg1');
-		this.game.add.sprite(1280 - 286, 0, 'healthmanabg2');
+		let bg1 = this.game.add.sprite(0, 0, 'healthmanabg1');
+		let bg2 = this.game.add.sprite(1280 - 286/2, 0, 'healthmanabg2');
 		this.graphics = this.game.add.graphics(0, 0);
 		const barWidth = 230;
 		
-		this.p1ManaSpriteBar = new SpriteBar(this.game, 'manabar', 16, 6, 258, () => this.players[0].mana / this.players[0].maxMana);
-		this.p1HealthSpriteBar = new SpriteBar(this.game, 'healthbar', 6, 44, 193, () => this.players[0].health / this.players[0].maxHealth);
+		this.p1ManaSpriteBar = new SpriteBar(this.game, 'manabar', 8, 3, 258/2, () => this.players[0].mana / this.players[0].maxMana);
+		this.p1HealthSpriteBar = new SpriteBar(this.game, 'healthbar', 3, 22, 193/2, () => this.players[0].health / this.players[0].maxHealth);
 		
-		this.p2ManaSpriteBar = new SpriteBar(this.game, 'manabar', 1280 - 16, 6 + 33, 258, () => this.players[1].mana / this.players[1].maxMana);
+		this.p2ManaSpriteBar = new SpriteBar(this.game, 'manabar', 1280 - 16/2, 3 + 33/2, 258/2, () => this.players[1].mana / this.players[1].maxMana);
 		this.p2ManaSpriteBar.sprite.angle = 180;
-		this.p2HealthSpriteBar = new SpriteBar(this.game, 'healthbar', 1280 - 6, 44 + 32, 193, () => this.players[1].health / this.players[1].maxHealth);
+		this.p2HealthSpriteBar = new SpriteBar(this.game, 'healthbar', 1280 - 3, 22 + 16, 193/2, () => this.players[1].health / this.players[1].maxHealth);
 		this.p2HealthSpriteBar.sprite.angle = 180;
-		
 		
 		this.p1BuildUi = new BuildUi(game, this.players[0]);
 		this.p2BuildUi = new BuildUi(game, this.players[1]);

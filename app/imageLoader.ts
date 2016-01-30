@@ -1,6 +1,6 @@
 class ImageLoader {
 	static load(game: Phaser.Game) {
-		game.load.image('bg', 'img/bg.jpg');
+		game.load.image('bg', 'img/bg2.jpg');
 		game.load.image('sheeple', 'img/sheeple.png');
 		game.load.image('soul', 'img/soul.png');
 		
