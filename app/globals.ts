@@ -8,6 +8,8 @@ class Globals {
 	static playerCollisionGroup: Phaser.Physics.P2.CollisionGroup;
 	static pitCollisionGroup: Phaser.Physics.P2.CollisionGroup;
 	static groundCreatureCollisionGroup: Phaser.Physics.P2.CollisionGroup;
+	static flyingCreatureCollisionGroup: Phaser.Physics.P2.CollisionGroup;
+	static flyingSensorCollisionGroup: Phaser.Physics.P2.CollisionGroup;
 	
 	
 	static lambSacrificed: LiteEvent<Lamb> = new LiteEvent<Lamb>();  
@@ -19,6 +21,8 @@ class Globals {
 		this.playerCollisionGroup = game.physics.p2.createCollisionGroup();
 		this.pitCollisionGroup = game.physics.p2.createCollisionGroup();
 		this.groundCreatureCollisionGroup = game.physics.p2.createCollisionGroup();
+		this.flyingCreatureCollisionGroup = game.physics.p2.createCollisionGroup();
+		this.flyingSensorCollisionGroup = game.physics.p2.createCollisionGroup();
 		
 		game.physics.p2.updateBoundsCollisionGroup();
 	}

@@ -1,4 +1,5 @@
 import CombatUnit = require('./combatUnit');
+import FlyingUnit = require('./flyingUnit');
 import GameObject = require('./gameObject');
 import Globals = require('./globals');
 import Player = require('./player');
@@ -147,14 +148,28 @@ class SummonedUnit extends CombatUnit {
 			if (cu.player == this.player) {
 				continue;
 			}
-			//TODO: can't attack flying? maybe we can ask if we collide with it?
 			
+			if (!this.canAttack(cu)) {
+				continue;
+			}
+
 			let dist = this.distanceTo(cu);
 			if (dist < minDist) {
 				this.target = cu;
 				minDist = dist;
 			}
 		}
+	}
+	
+	protected canAttack(cu: CombatUnit) {
+		if ((<any>this).isFlying) {
+			return true;
+		}
+		//TODO: Ranged unit can attack flying
+		if ((<any>cu).isFlying) {
+			return false;
+		}
+		return true;
 	}
 }
 export = SummonedUnit;

@@ -1,4 +1,5 @@
 import CombatUnit = require('./combatUnit');
+import FlyingUnit = require('./flyingUnit');
 import GameObject = require('./gameObject');
 import Globals = require('./globals');
 import Harvester = require('./harvester');
@@ -54,7 +55,7 @@ class Player extends CombatUnit {
 		//Be careful to put callback ones first (or don't put callback ones in the second array)
 		this.body.collides(Globals.lambCollisionGroup, this.lambCollision, this);
 
-		this.body.collides([Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup]);
+		this.body.collides([Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup, Globals.flyingSensorCollisionGroup]);
 	}
 
 	lambCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
@@ -135,7 +136,7 @@ class Player extends CombatUnit {
 			if (justY && this.mana >= 30) {
 				this.mana -= 30;
 
-				//TODO Globals.gameObjects.push(new MeleeUnit(this.game, this, spawnX, spawnY));
+				Globals.gameObjects.push(new FlyingUnit(this.game, this, spawnX, spawnY));
 			}
 		}
 		

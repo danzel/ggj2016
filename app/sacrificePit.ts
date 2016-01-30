@@ -33,7 +33,7 @@ class SacrificePit implements GameObject {
 		this.body.collides(Globals.groundCreatureCollisionGroup, this.groundCreatureCollision, this);
 
 
-		this.body.collides([Globals.playerCollisionGroup, Globals.lambCollisionGroup]);
+		this.body.collides([Globals.playerCollisionGroup, Globals.lambCollisionGroup, Globals.flyingSensorCollisionGroup]);
 	}
 
 	playerCollision(body1: Phaser.Physics.P2.Body, body2: Phaser.Physics.P2.Body) {
