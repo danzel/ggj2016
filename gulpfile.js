@@ -7,7 +7,7 @@ var webpack = require("webpack");
 var webpackConfig = require("./webpack.config.js");
 
 
-gulp.task("default", ["webpack", 'copy-img']);
+gulp.task("default", ["webpack", 'copy-img', 'copy-font']);
 
 
 gulp.task('webpack', function (callback) {
@@ -31,6 +31,9 @@ gulp.task('webpack', function (callback) {
 
 gulp.task('copy-img', function () {
 	gulp.src(['img/**/*']).pipe(gulp.dest('dist/img'));
+})
+gulp.task('copy-font', function () {
+	gulp.src(['font/**/*']).pipe(gulp.dest('dist/font'));
 })
 
 gulp.task('package', ['default'], function () {

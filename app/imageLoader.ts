@@ -39,6 +39,8 @@ class ImageLoader {
 		game.load.spritesheet('sheeple-walk', 'img/sheeple-w.png', 32, 32, 2);
 		game.load.image('shadow-sheeple', 'img/shadows/sheeple.png');
 		
+		game.load.image('splash', 'img/splash.jpg');
+		game.load.image('controls', 'img/controls.jpg');
 		game.load.image('win1', 'img/win1.png');
 		game.load.image('win2', 'img/win2.png');
 		

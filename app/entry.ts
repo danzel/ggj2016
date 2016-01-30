@@ -3,6 +3,7 @@ import ImageLoader = require('./imageLoader');
 
 import GameState = require('./states/gameState');
 import PlayingGame = require('./states/playingGame');
+import SplashScreen = require('./states/splashScreen');
 
 class AppEntry {
 	game: Phaser.Game;
@@ -31,7 +32,8 @@ class AppEntry {
 		this.music.play();
 		
 		
-		this.activeState = new PlayingGame(this.game);
+		this.activeState = new SplashScreen(this.game);
+		//this.activeState = new PlayingGame(this.game);
 	}
 
 	update() {
