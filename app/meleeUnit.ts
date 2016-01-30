@@ -7,8 +7,8 @@ class MeleeUnit extends SummonedUnit {
 		super(game, player, x, y, {
 			size: 20,
 			
-			health: 40,
-			dps: 20,
+			health: 36,
+			dps: 16,
 			desiredTargetDistance: 0,
 
 			movementForce: 30,

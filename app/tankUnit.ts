@@ -12,8 +12,8 @@ class TankUnit extends SummonedUnit {
 			dps: 5,
 			desiredTargetDistance: 0,
 
-			movementForce: 500,
-			massMultiplier: 50,
+			movementForce: 200,
+			massMultiplier: 30,
 
 			layer: Globals.layerGround,
 			collisionGroup: Globals.groundCreatureCollisionGroup,
