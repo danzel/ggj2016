@@ -51,8 +51,8 @@ class Globals {
 		this.bloodSplatters.add(x, y, duration, numParticles);
 	}
 	
-	static addSoul(x: number, y: number) {
-		this.souls.add(x, y);
+	static addSoul(x: number, y: number, playerNumber: number) {
+		this.souls.add(x, y, playerNumber);
 	}
 }
 
