@@ -16,6 +16,8 @@ class SacrificePit implements GameObject {
 		} else {
 			this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, 1280 - 50, 720 / 2, 'altar' + player.id));
 		}
+		this.sprite.animations.add('altarAnim', [0, 1, 2, 1], 3, true);
+		this.sprite.animations.play('altarAnim');
 		this.sprite.smoothed = false;
 		this.sprite.scale.set(1.5);
 

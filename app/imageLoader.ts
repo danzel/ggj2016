@@ -5,7 +5,7 @@ class ImageLoader {
 		game.load.image('soul', 'img/soul.png');
 		
 
-		game.load.image('altar1', 'img/creeps/t1-altar.png');
+		game.load.spritesheet('altar1', 'img/creeps/t1-altar-a.png', 64, 96);
 		game.load.spritesheet('player1', 'img/creeps/t1-monarch-a.png', 92, 64);
 		game.load.image('warrior1', 'img/creeps/t1-warrior.png');
 		game.load.image('tank1', 'img/creeps/t1-tank.png');
@@ -14,7 +14,7 @@ class ImageLoader {
 		game.load.image('spam1', 'img/creeps/t1-shoal.png');
 		game.load.image('thrower1', 'img/creeps/t1-thrower.png');
 		
-		game.load.image('altar2', 'img/creeps/t2-altar.png');
+		game.load.spritesheet('altar2', 'img/creeps/t2-altar-a.png', 64, 96);
 		game.load.spritesheet('player2', 'img/creeps/t2-monarch-a.png', 92, 64);
 		game.load.image('warrior2', 'img/creeps/t2-warrior.png');
 		game.load.image('tank2', 'img/creeps/t2-tank.png');
