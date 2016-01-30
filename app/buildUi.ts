@@ -1,4 +1,3 @@
-import ControlMode = require('./controlMode');
 import Player = require('./player');
 
 class BuildUi {
@@ -27,7 +26,7 @@ class BuildUi {
 	}
 	
 	update() {
-		var visible = this.player.controlMode == ControlMode.BUILD;
+		var visible = this.player.timeBuildVisible < 1;
 		if (visible) {
 			this.group.x = this.player.sprite.x;
 			this.group.y = this.player.sprite.y;
