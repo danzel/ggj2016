@@ -40,7 +40,7 @@ class GGHandler {
 			stroke: 'white',
 			strokeThickness: 6
 		});
-		text.setTextBounds(0, 0, 200, 50);
+		text.setTextBounds(0, 0, 0, 100);
 		Globals.layerUi.add(text);
 		text.alpha = 0;
 
