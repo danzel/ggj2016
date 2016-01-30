@@ -11,7 +11,7 @@ class MeleeUnit extends SummonedUnit {
 			massMultiplier: 1,
 			collisionGroup: Globals.groundCreatureCollisionGroup,
 			collidesWith: [Globals.lambCollisionGroup, Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup, Globals.flyingSensorCollisionGroup],
-			sprite: 'warrior2'
+			sprite: 'warrior' + player.id
 		});
 	}
 }

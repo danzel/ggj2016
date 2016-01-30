@@ -17,7 +17,7 @@ class FlyingUnit extends SummonedUnit {
 			massMultiplier: 1,
 			collisionGroup: Globals.flyingCreatureCollisionGroup,
 			collidesWith: [Globals.flyingCreatureCollisionGroup, Globals.flyingSensorCollisionGroup],
-			sprite: 'flying2'
+			sprite: 'flying' + player.id
 		});
 		
 		//Hack: Undo the default collision handlers:

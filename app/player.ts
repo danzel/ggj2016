@@ -33,9 +33,9 @@ class Player extends CombatUnit {
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
 		if (id == 1) {
-			this.sprite = game.add.sprite(100, 300, 'player2');
+			this.sprite = game.add.sprite(100, 300, 'player' + id);
 		} else {
-			this.sprite = game.add.sprite(1280 - 100, 300, 'player2');
+			this.sprite = game.add.sprite(1280 - 100, 300, 'player' + id);
 		}
 		this.sprite.smoothed = false;
 		this.sprite.scale.set(1.2);
@@ -43,7 +43,7 @@ class Player extends CombatUnit {
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
 
-		game.physics.p2.enable(this.sprite, true);
+		game.physics.p2.enable(this.sprite);
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
 		this.body.setMaterial(Materials.groundUnitMaterial);
 		(<any>this.body).player = this;
