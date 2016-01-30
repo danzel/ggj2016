@@ -18,7 +18,7 @@ class SummonedUnit extends CombatUnit {
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
 
-		game.physics.p2.enable(this.sprite);
+		game.physics.p2.enable(this.sprite); //DEBUG ON HERE
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
 		(<any>this.body).combatUnit = this;
 		
