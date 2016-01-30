@@ -1,4 +1,5 @@
 import GameObject = require('./gameObject');
+import Globals = require('./globals');
 import HealthBar = require('./healthBar');
 import Player = require('./player');
 
@@ -47,6 +48,7 @@ class CombatUnit implements GameObject {
 
 	takeDamage(damage: number) {
 		this.health -= damage;
+		Globals.addBloodSplatter(this.sprite.x, this.sprite.y);
 		if (this.health <= 0) {
 			this.preDie();
 			this.sprite.destroy(); //TODO: effect

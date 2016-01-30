@@ -18,6 +18,8 @@ class ImageLoader {
 		game.load.image('tank2', 'img/d-tank.png');
 		game.load.image('flying2', 'img/d-harpy.png');
 		game.load.image('harvester2', 'img/d-thrall.png');
+		
+		game.load.image('blood', 'img/blood.png');
 	}
 }
 
