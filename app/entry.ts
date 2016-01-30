@@ -55,6 +55,10 @@ class AppEntry {
 
 	lastSpawn = 0;
 	update() {
+		
+		//if (!this.winner) {
+		//	checkForDeadPlayers();
+		//}
 
 		for (let i = 0; i < Globals.gameObjects.length; i++) {
 			//tidy up

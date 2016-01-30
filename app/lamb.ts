@@ -61,10 +61,8 @@ class Lamb implements GameObject {
 		let abs = Math.sqrt(this.body.velocity.x * this.body.velocity.x + this.body.velocity.y * this.body.velocity.y);
 		if (abs > 2 && !this.walking) {
 			this.walking = true;
-			console.log('go');
 			this.sprite.animations.play('walk', 4, true);
 		} else if (abs <= 2 && this.walking) {
-			console.log('stop');
 			this.walking = false;
 			this.sprite.animations.stop('walk', true);
 		}
