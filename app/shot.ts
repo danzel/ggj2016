@@ -7,7 +7,8 @@ class Shot {
 	
 	constructor(private game: Phaser.Game, shooter: SummonedUnit, private target: CombatUnit, private speed: number, private damage: number) {
 		this.sprite = this.game.add.sprite(shooter.sprite.x, shooter.sprite.y, 'shot');
-
+		this.sprite.anchor.x = 0.5;
+		this.sprite.anchor.y = 0.5;
 	}
 	
 	update() {

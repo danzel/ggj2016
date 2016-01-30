@@ -6,7 +6,7 @@ class ImageLoader {
 		
 
 		game.load.image('altar1', 'img/creeps/t1-altar.png');
-		game.load.image('player1', 'img/creeps/t1-monarch.png');
+		game.load.spritesheet('player1', 'img/creeps/t1-monarch-a.png', 92, 64);
 		game.load.image('warrior1', 'img/creeps/t1-warrior.png');
 		game.load.image('tank1', 'img/creeps/t1-tank.png');
 		game.load.image('flying1', 'img/creeps/t1-harpy.png');
@@ -15,7 +15,7 @@ class ImageLoader {
 		game.load.image('thrower1', 'img/creeps/t1-thrower.png');
 		
 		game.load.image('altar2', 'img/creeps/t2-altar.png');
-		game.load.image('player2', 'img/creeps/t2-monarch.png');
+		game.load.spritesheet('player2', 'img/creeps/t2-monarch-a.png', 92, 64);
 		game.load.image('warrior2', 'img/creeps/t2-warrior.png');
 		game.load.image('tank2', 'img/creeps/t2-tank.png');
 		game.load.image('flying2', 'img/creeps/t2-harpy.png');
@@ -25,9 +25,11 @@ class ImageLoader {
 		
 		game.load.image('flyingshadow', 'img/harpyshadow.png');
 		game.load.image('blood', 'img/blood.png');
-		game.load.image('shot', 'img/creeps/t2-thrower-attk.png');
+		game.load.image('shot', 'img/shot.png');
 		game.load.image('selector1', 'img/t1-selector.png');
 		game.load.image('selector2', 'img/t2-selector.png');
+		
+		game.load.spritesheet('sheeple-walk', 'img/sheeple-w.png', 32, 32, 2);
 	}
 }
 

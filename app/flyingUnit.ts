@@ -15,8 +15,8 @@ class FlyingUnit extends SummonedUnit {
 		super(game, player, x, y, {
 			size: 16,
 
-			health: 40,
-			dps: 10,
+			health: 20,
+			dps: 7,
 			desiredTargetDistance: 0,
 			
 			movementForce: 30,

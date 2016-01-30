@@ -36,7 +36,7 @@ class Player extends CombatUnit {
 		super(game, null, 100, id); //fuck can't use this here, CombatUnit fixes this
 		
 		this.gamepad = this.gamepadMain;
-		
+
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
 		if (id == 1) {
@@ -44,6 +44,9 @@ class Player extends CombatUnit {
 		} else {
 			this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, 1280 - 100, 300, 'player' + id));
 		}
+		this.sprite.animations.add('walk', [0, 1, 2, 1], 4, true);
+		this.sprite.animations.play('walk');
+
 		this.sprite.smoothed = false;
 		this.sprite.scale.set(1.2);
 
@@ -109,7 +112,7 @@ class Player extends CombatUnit {
 			}
 		}
 		
-		this.mana -= this.game.time.physicsElapsed * 2;
+		this.mana -= this.game.time.physicsElapsed * 1;
 		if (this.mana < 0) {
 			
 			//TODO: gods are angry at you
@@ -125,7 +128,7 @@ class Player extends CombatUnit {
 		let y = this.gamepad.axis(1);
 		this.body.moveRight(x * 400);
 		this.body.moveDown(y * 400);
-		
+
 		this.rotateSprite(x, y);
 
 		let nowA = this.gamepad.getButton(Phaser.Gamepad.XBOX360_A).isDown;
@@ -221,7 +224,7 @@ class Player extends CombatUnit {
 				this.controlMode = ControlMode.PLAYER;
 		}		
 	}
-	
+
 	swapGamepad() {
 		if (this.gamepadAlt === null)
 			return;
