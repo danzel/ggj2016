@@ -44,6 +44,8 @@ class ImageLoader {
 		game.load.image('healthmanabg2', 'img/healthmanabg2.png');
 		game.load.image('healthbar', 'img/healthbar.png');
 		game.load.image('manabar', 'img/manabar.png');
+		
+		game.load.audio('music', 'audio/NextofKinNotifiedWIP4.mp3');
 	}
 }
 

@@ -15,6 +15,8 @@ class AppEntry {
 	sacrificePits: Array<SacrificePit> = [];
 
 	swapButtonDown: boolean = false;
+	
+	music: Phaser.Sound;
 
 	constructor() {
 		this.game = new Phaser.Game(1280, 720, Phaser.AUTO, '', this, false, true, null);
@@ -51,6 +53,9 @@ class AppEntry {
 		}
 
 		this.ui = new Ui(this.game, this.players);
+
+		this.music = this.game.add.audio('music', 1, true);
+		this.music.play();
 	}
 
 	lastSpawn = 0;
