@@ -6,8 +6,10 @@ class FlyingUnit extends SummonedUnit {
 
 	circleBody: Phaser.Physics.P2.Body;
 	isFlying = true;
-	
+
 	constraint: Phaser.Physics.P2.DistanceConstraint;
+
+	shadow: Phaser.Sprite;
 
 	constructor(game: Phaser.Game, player: Player, x: number, y: number) {
 		super(game, player, x, y, {
@@ -20,6 +22,12 @@ class FlyingUnit extends SummonedUnit {
 			collidesWith: [Globals.flyingCreatureCollisionGroup, Globals.flyingSensorCollisionGroup],
 			sprite: 'flying' + player.id
 		});
+
+		this.shadow = new Phaser.Sprite(game, x, y, 'flyingshadow');
+		this.shadow.anchor.x = 0.5;
+		this.shadow.anchor.y = 0.5;
+		this.shadow.alpha = 0.5;
+		Globals.layerFlying.addAt(this.shadow, 0);
 		
 		//Hack: Undo the default collision handlers:
 		this.body.onBeginContact.remove(this.beginContact, this);
@@ -39,11 +47,20 @@ class FlyingUnit extends SummonedUnit {
 
 		this.constraint = game.physics.p2.createDistanceConstraint(this.body, this.circleBody, 1);
 	}
-	
+
+	update() {
+		super.update();
+		
+		//TODO move shadow
+		this.shadow.angle = this.sprite.angle;
+		this.shadow.x = this.sprite.x + 6;
+		this.shadow.y = this.sprite.y + 16;
+	}
+
 	preDie() {
 		this.game.physics.p2.removeConstraint(this.constraint);
 	}
-	
+
 	onDead() {
 		this.circleBody.removeFromWorld();
 		this.circleBody.clearShapes();
