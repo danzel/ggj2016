@@ -11,12 +11,12 @@ class CombatUnit implements GameObject {
 	healthBar: HealthBar;
 	player: Player;
 
-	constructor(game: Phaser.Game, player: Player, maxHealth: number) {
+	constructor(game: Phaser.Game, player: Player, maxHealth: number, playerNumber: number) {
 		this.graphics = game.add.graphics(0, 0);
 		this.player = player || (<Player><any>this);
 		this.maxHealth = maxHealth;
 		this.health = this.maxHealth;
-		this.healthBar = new HealthBar(this.graphics, 50, 7, 1, 0x60120B, 0xE52C1B, this.player.id == 2, 0, 0);
+		this.healthBar = new HealthBar(this.graphics, 50, 7, 1, playerNumber, false, playerNumber == 2, 0, 0);
 		
 		//if (!(this.player instanceof Player)) {
 		//	debugger; //you fucked up

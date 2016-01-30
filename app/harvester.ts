@@ -10,7 +10,7 @@ class Harvester extends CombatUnit {
 	targetSpring: Phaser.Physics.P2.Spring;
 
 	constructor(private game: Phaser.Game, player: Player, x: number, y: number) {
-		super(game, player, 20);
+		super(game, player, 20, player.id);
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
 		this.sprite = game.add.sprite(x, y, 'harvester2');

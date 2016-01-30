@@ -9,13 +9,28 @@ class HealthBar {
 	x: number;
 	y: number;
 	
-	constructor(graphics: Phaser.Graphics, width: number, height: number, radius: number, backColour: number, frontColour: number, backwards: boolean, x: number, y: number) {
+	constructor(graphics: Phaser.Graphics, width: number, height: number, radius: number, playerNumber: number, mana: boolean, backwards: boolean, x: number, y: number) {
 		this.graphics = graphics;
 		this.width = width;
 		this.height = height;
 		this.radius = radius;
-		this.backColour = backColour;
-		this.frontColour = frontColour;
+		if (playerNumber == 1) {
+			if (mana) {
+				this.backColour = 0x3E0F54;
+				this.frontColour = 0xAC36E2;
+			} else {
+				this.backColour = 0x540825;
+				this.frontColour = 0xE5296E;
+			}
+		} else if (playerNumber == 2) {
+			if (mana) {
+				this.backColour = 0x07353D;
+				this.frontColour = 0x28B3CC;
+			} else {
+				this.backColour = 0x191060;
+				this.frontColour = 0x4147EA;
+			}
+		}
 		this.backwards = backwards;
 		this.x = x;
 		this.y = y;
