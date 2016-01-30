@@ -1,4 +1,5 @@
 import GameState = require('./gameState');
+import GGHandler = require('../ggHandler');
 import Globals = require('../globals');
 import Harvester = require('../harvester');
 import ImageLoader = require('../imageLoader');
@@ -10,15 +11,15 @@ import Ui = require('../ui');
 class PlayingGame implements GameState {
 	game: Phaser.Game;
 	ui: Ui;
-
+	ggHandler: GGHandler;
 	players: Array<Player> = [];
 	sacrificePits: Array<SacrificePit> = [];
 
 	swapButtonDown: boolean = false;
-	
+
 	constructor(game: Phaser.Game) {
 		this.game = game;
-		
+
 		this.game.add.sprite(0, 0, 'bg');
 		Globals.init();
 		this.game.input.gamepad.start();
@@ -38,6 +39,8 @@ class PlayingGame implements GameState {
 		}
 
 		this.ui = new Ui(this.game, this.players);
+
+		this.ggHandler = new GGHandler(game, this.players);
 	}
 
 	lastSpawn = 0;
@@ -62,6 +65,7 @@ class PlayingGame implements GameState {
 
 
 		this.ui.update();
+		this.ggHandler.update();
 		//debugger;
 		//this.game.time.physicsElapsed
 		
@@ -86,7 +90,7 @@ class PlayingGame implements GameState {
 				Globals.gameObjects.push(new Lamb(this.game, 1280 / 2 - 100 + 200 * Math.random(), 720 - 200 + 200 * Math.random()));
 			}
 		}
-		
+
 		let startDownNow =
 			(this.game.input.gamepad.pad1.connected && this.game.input.gamepad.pad1.getButton(Phaser.Gamepad.XBOX360_START).isDown) ||
 			(this.game.input.gamepad.pad2.connected && this.game.input.gamepad.pad2.getButton(Phaser.Gamepad.XBOX360_START).isDown);
@@ -101,10 +105,10 @@ class PlayingGame implements GameState {
 			return new PlayingGame(this.game);
 		}
 		PlayingGame.startDown = startDownNow;
-		
+
 		return this;
 	}
-	
+
 	static startDown: boolean;
 }
 

@@ -32,7 +32,7 @@ class Player extends CombatUnit {
 	timeBuildVisible: number = 9999;
 
 	constructor(private game: Phaser.Game, public id: number, private gamepadMain: Phaser.SinglePad, private gamepadAlt: Phaser.SinglePad) {
-		super(game, null, 100, id); //fuck can't use this here, CombatUnit fixes this
+		super(game, null, 10, id); //fuck can't use this here, CombatUnit fixes this
 		
 		this.gamepad = this.gamepadMain;
 
