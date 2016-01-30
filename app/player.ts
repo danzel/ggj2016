@@ -102,6 +102,12 @@ class Player extends CombatUnit {
 		if (this.mana > this.maxMana) {
 			this.mana = this.maxMana;
 		}
+		if (this.mana < 0) {
+			
+			//TODO: gods are angry at you
+			this.takeDamage(-this.mana);
+			this.mana = 0;
+		}
 	}
 
 	update() {
@@ -113,13 +119,7 @@ class Player extends CombatUnit {
 			this.updateControls();
 		}
 
-		this.mana -= this.game.time.physicsElapsed * 1;
-		if (this.mana < 0) {
-			
-			//TODO: gods are angry at you
-			this.takeDamage(-this.mana);
-			this.mana = 0;
-		}
+		this.addMana(this.game.time.physicsElapsed * 1);
 
 		super.update();
 	}
