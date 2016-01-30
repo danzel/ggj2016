@@ -48,6 +48,7 @@ class CombatUnit implements GameObject {
 	takeDamage(damage: number) {
 		this.health -= damage;
 		if (this.health <= 0) {
+			this.preDie();
 			this.sprite.destroy(); //TODO: effect
 			this.graphics.destroy();
 
@@ -55,6 +56,9 @@ class CombatUnit implements GameObject {
 		}
 	}
 
+	preDie() {
+		//Override in child classes
+	}
 	onDead() {
 		//Override in child classes
 	}

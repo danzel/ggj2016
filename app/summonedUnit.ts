@@ -11,7 +11,7 @@ class SummonedUnit extends CombatUnit {
 
 	target: CombatUnit;
 
-	constructor(private game: Phaser.Game, player: Player, x: number, y: number, private def: SummonedUnitDef) {
+	constructor(protected game: Phaser.Game, player: Player, x: number, y: number, private def: SummonedUnitDef) {
 		super(game, player, def.health, player.id);
 
 		this.sprite = game.add.sprite(x, y, def.sprite);
