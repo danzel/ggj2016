@@ -1,4 +1,5 @@
 import BuildUi = require('./buildUi');
+import Globals = require('./globals');
 import HealthBar = require('./healthBar');
 import Player = require('./player');
 
@@ -19,8 +20,11 @@ class Ui {
 		this.game = game;
 		this.players = players;
 		
-		let bg1 = this.game.add.sprite(0, 0, 'healthmanabg1');
-		let bg2 = this.game.add.sprite(1280 - 286/2, 0, 'healthmanabg2');
+		let bg1 = new Phaser.Sprite(game, 0, 0, 'healthmanabg1');
+		let bg2 = new Phaser.Sprite(game, 1280 - 286/2, 0, 'healthmanabg2');
+		Globals.layerUi.add(bg1);
+		Globals.layerUi.add(bg2);
+		
 		this.graphics = this.game.add.graphics(0, 0);
 		const barWidth = 230;
 		
@@ -53,7 +57,8 @@ class SpriteBar {
 	sprite: Phaser.Sprite;
 	
 	constructor(game: Phaser.Game, key: string, private x: number, y: number, private width: number, private valueGetter: () => number)	 {
-		this.sprite = game.add.sprite(x, y, key);
+		this.sprite = new Phaser.Sprite(game, x, y, key);
+		Globals.layerUi.add(this.sprite)
 	}
 	
 	update() {

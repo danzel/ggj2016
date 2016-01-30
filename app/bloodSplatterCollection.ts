@@ -17,7 +17,12 @@ class BloodSplatterCollection {
 	public remove(bs: BloodSplatter) {
 		var index = this.bloodSplatters.indexOf(bs);
 		this.bloodSplatters.splice(index, 1);
-		
+	}
+	
+	reset() {
+		for (let i = 0; i < this.bloodSplatters.length; i++) {
+			this.bloodSplatters[i].destroyEmitter();
+		}
 	}	
 }
 

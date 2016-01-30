@@ -16,7 +16,7 @@ class Soul {
 		game.add.tween(this.emitter).to({ x: tweenX }, 450, k => Math.sin(k * Math.PI*2), true);
 	}
 	
-	private complete() {
+	complete() {
 		this.sprite.destroy();
 		this.emitter.destroy();
 	}
