@@ -68,7 +68,7 @@ class SacrificePit implements GameObject {
 		
 		Globals.addBloodSplatter(this.sprite.x, this.sprite.y, 1000, 12);
 		Globals.addSoul(this.sprite.x - 12, this.sprite.y - 45, this.player.id);
-
+		Globals.soundscape.addScream();
 	}
 	update() {
 

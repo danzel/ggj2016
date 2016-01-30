@@ -49,6 +49,16 @@ class ImageLoader {
 		game.load.image('manabar', 'img/manabar.png');
 		
 		game.load.audio('music', 'audio/NextofKinNotifiedWIP4.mp3');
+		game.load.audio('scream0', 'audio/scream/9432__thanvannispen__male-thijs-loud-scream.wav');
+		game.load.audio('scream1', 'audio/scream/42847__freqman__psycho-scream-1.wav');
+		game.load.audio('scream2', 'audio/scream/50776__smcameron__fall-with-impact.ogg');
+		game.load.audio('scream3', 'audio/scream/58793__syna-max__death-scream.wav');
+		game.load.audio('scream4', 'audio/scream/235591__tcrocker68__girl-scream-followingscreams.wav');
+		game.load.audio('demon0', 'audio/demon/213509__soykevin__zombie-attack.wav');
+		game.load.audio('demon1', 'audio/demon/85568__joelaudio__dragon-roar.wav');
+		game.load.audio('demon2', 'audio/demon/48688__sea-fury__monster-4.wav');
+		game.load.audio('demon3', 'audio/demon/49127__aesqe__monster-growl-01.wav');
+		game.load.audio('demon4', 'audio/demon/50881__gabemiller74__werewolf.wav');
 	}
 }
 

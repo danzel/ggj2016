@@ -6,6 +6,7 @@ import Materials = require('./materials');
 import Shot = require('./shot');
 import Soul = require('./soul');
 import SoulCollection = require('./soulCollection');
+import Soundscape = require('./soundscape');
 
 class Globals {
 
@@ -29,6 +30,8 @@ class Globals {
 
 	static bloodSplatters: BloodSplatterCollection;
 	static souls: SoulCollection;
+	
+	static soundscape: Soundscape;
 
 	static oneTimeInit(game: Phaser.Game) {
 		this.game = game;
@@ -47,6 +50,8 @@ class Globals {
 		this.game.physics.p2.updateBoundsCollisionGroup();
 		
 		Materials.init(this.game);
+		
+		this.soundscape = new Soundscape(this.game);
 	}
 	
 	static init() {
