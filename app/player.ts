@@ -150,7 +150,7 @@ class Player extends CombatUnit {
 		//this.sprite.body.force.y = this.gamepad.axis(1) * 100;
 		
 		
-		this.mana += this.game.time.physicsElapsed * 2;
+		this.mana -= this.game.time.physicsElapsed * 2;
 		if (this.mana < 0) {
 			
 			//TODO: gods are angry at you
