@@ -41,8 +41,8 @@ class Globals {
 		game.physics.p2.updateBoundsCollisionGroup();
 	}
 	
-	static addBloodSplatter(x: number, y: number) {
-		this.bloodSplatters.add(x, y);
+	static addBloodSplatter(x: number, y: number, duration: number, numParticles: number) {
+		this.bloodSplatters.add(x, y, duration, numParticles);
 	}
 }
 

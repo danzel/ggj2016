@@ -8,10 +8,10 @@ class BloodSplatterCollection {
 		this.game = game;
 	}
 	
-	add(x: number, y: number) {
-		if (this.bloodSplatters.length >= 20)
+	add(x: number, y: number, duration: number, numParticles: number) {
+		if (this.bloodSplatters.length >= 100)
 			return;
-		this.bloodSplatters.push(new BloodSplatter(this.game, x, y, this));		
+		this.bloodSplatters.push(new BloodSplatter(this.game, x, y, this, duration, numParticles));		
 	}
 	
 	public remove(bs: BloodSplatter) {

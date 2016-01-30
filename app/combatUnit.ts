@@ -48,7 +48,7 @@ class CombatUnit implements GameObject {
 
 	takeDamage(damage: number) {
 		this.health -= damage;
-		Globals.addBloodSplatter(this.sprite.x, this.sprite.y);
+		Globals.addBloodSplatter(this.sprite.x + Math.random() * 30 - 15, this.sprite.y + Math.random() * 30 - 15, 200, 1);
 		if (this.health <= 0) {
 			this.preDie();
 			this.sprite.destroy(); //TODO: effect
