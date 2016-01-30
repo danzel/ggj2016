@@ -64,7 +64,7 @@ class SacrificePit implements GameObject {
 
 		Globals.lambSacrificed.trigger(lamb);
 		
-		Globals.addBloodSplatter(this.sprite.x, this.sprite.y, 750, 12);
+		Globals.addBloodSplatter(this.sprite.x, this.sprite.y, 1000, 12);
 
 	}
 	update() {
