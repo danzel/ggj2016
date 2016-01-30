@@ -32,7 +32,13 @@ class Shot {
 	}
 	
 	finish() {
-		this.target.takeDamage(this.damage);
+		
+		let totalSpam = 20;
+		let spam = totalSpam;
+		while (spam > 0) {
+			this.target.takeDamage(this.damage / totalSpam);
+			spam--;
+		}
 		Globals.shots.splice(Globals.shots.indexOf(this), 1);
 		this.sprite.destroy();
 	}
