@@ -8,7 +8,7 @@ class TankUnit extends SummonedUnit {
 			capsuleLength: 40,
 			size: 30,
 
-			health: 80,
+			health: 150,
 			dps: 5,
 			desiredTargetDistance: 0,
 

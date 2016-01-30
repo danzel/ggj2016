@@ -7,11 +7,11 @@ class SpamUnit extends SummonedUnit {
 		super(game, player, x, y, {
 			size: 10,
 
-			health: 10,
+			health: 6,
 			dps: 5,
 			desiredTargetDistance: 0,
 
-			movementForce: 30,
+			movementForce: 40,
 			massMultiplier: 0.5,
 
 			layer: Globals.layerGround,
