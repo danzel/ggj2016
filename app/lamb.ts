@@ -15,11 +15,16 @@ class Lamb implements GameObject {
 
 	constructor(private game: Phaser.Game, x: number, y: number) { //TODO: Type
 		
-		this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, x, y, 'sheeple-walk'));
-		this.sprite.animations.add('walk', [0, 1], 4, true);
+		this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, x, y, 'sheeple-new'));
+		this.sprite.animations.add('down', [0, 1, 2, 1], 4, true);
+		this.sprite.animations.add('left', [3, 4, 5, 4], 4, true);
+		this.sprite.animations.add('right', [6, 7, 8, 7], 4, true);
+		this.sprite.animations.add('up', [9, 10, 11, 10], 4, true);
+		this.sprite.animations.add('standing', [1], 4, true);
+		this.ensureAnimation('standing');
 
-		this.sprite.smoothed = false;
-		this.sprite.scale.set(1.3);
+		//this.sprite.smoothed = false;
+		//this.sprite.scale.set(1.3);
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
 
@@ -45,32 +50,44 @@ class Lamb implements GameObject {
 		(<any>this.body).lamb = this;
 	}
 
-	walking = false;
+	animation = '';
 
 	update() {
-		if (this.body.velocity.x > 0) {
-			this.body.sprite.scale.x = 1;
-		} else if (this.body.velocity.x < 0) {
-			this.body.sprite.scale.x = -1;
-		}
-
-		if (!this.beingDragged) {
-			this.sprite.angle = 0;
-		}
 
 		let abs = Math.sqrt(this.body.velocity.x * this.body.velocity.x + this.body.velocity.y * this.body.velocity.y);
-		if (abs > 2 && !this.walking) {
-			this.walking = true;
-			this.sprite.animations.play('walk', 4, true);
-		} else if (abs <= 2 && this.walking) {
-			this.walking = false;
-			this.sprite.animations.stop('walk', true);
+		
+		if (abs > 2) {
+			
+			if (Math.abs(this.body.velocity.x) > Math.abs(this.body.velocity.y)) {
+				if (this.body.velocity.x > 0) {
+					this.ensureAnimation('right');
+				} else {
+					this.ensureAnimation('left');
+				}
+			} else {
+				if (this.body.velocity.y > 0) {
+					this.ensureAnimation('down');
+				} else {
+					this.ensureAnimation('up');
+				}
+			}
+		} else {
+			this.ensureAnimation('standing');
 		}
-		
-		
+
+
 		this.shadow.angle = this.sprite.angle;
 		this.shadow.x = this.sprite.x;
 		this.shadow.y = this.sprite.y + 18;
+	}
+	
+	ensureAnimation(anim: string) {
+		if (this.animation == anim) { 
+			return;
+		}
+		
+		this.sprite.animations.play(anim, 4, true);
+		this.animation = anim;
 	}
 }
 
