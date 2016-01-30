@@ -240,6 +240,9 @@ class Player extends CombatUnit {
 				}
 				break;
 		}
+		if (bought) {
+			this.timeBuildVisible = 999;
+		}
 		//TODO: Use bought?
 	}
 
