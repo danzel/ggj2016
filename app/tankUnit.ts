@@ -5,12 +5,14 @@ import SummonedUnit = require('./summonedUnit');
 class TankUnit extends SummonedUnit {
 	constructor(game: Phaser.Game, player: Player, x: number, y: number) {
 		super(game, player, x, y, {
+			capsuleLength: 40,
 			size: 30,
 			health: 50,
-			movementForce: 35,
+			movementForce: 500,
+			massMultiplier: 50,
 			collisionGroup: Globals.groundCreatureCollisionGroup,
 			collidesWith: [Globals.lambCollisionGroup, Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup],
-			sprite: 'tank2'
+			sprite: 'tank2',
 		});
 	}
 }

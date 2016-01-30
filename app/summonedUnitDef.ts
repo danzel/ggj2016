@@ -6,6 +6,11 @@ interface SummonedUnitDef {
 	collidesWith: Array<Phaser.Physics.P2.CollisionGroup>;
 	
 	sprite: string;
+	
+	//If set we are a capsule
+	capsuleLength?: number;
+	
+	massMultiplier: number; 
 }
 
 export = SummonedUnitDef;

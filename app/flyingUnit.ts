@@ -6,12 +6,13 @@ class FlyingUnit extends SummonedUnit {
 
 	circleBody: Phaser.Physics.P2.Body;
 	isFlying = true;
-	
+
 	constructor(game: Phaser.Game, player: Player, x: number, y: number) {
 		super(game, player, x, y, {
 			size: 16,
 			health: 40,
 			movementForce: 30,
+			massMultiplier: 1,
 			collisionGroup: Globals.flyingCreatureCollisionGroup,
 			collidesWith: [Globals.flyingCreatureCollisionGroup],
 			sprite: 'flying2'
@@ -32,14 +33,14 @@ class FlyingUnit extends SummonedUnit {
 
 		this.circleBody.onBeginContact.add(this.beginContact, this);
 		this.circleBody.onEndContact.add(this.endContact, this);
-		
+
 		var constraint = game.physics.p2.createDistanceConstraint(this.body, this.circleBody, 1);
 	}
-/*	beginContact(bodyA: Phaser.Physics.P2.Body, bodyB: Phaser.Physics.P2.Body) {
-		debugger;
-		super.beginContact(bodyA, bodyB);
-	}
-	endContact(bodyA: Phaser.Physics.P2.Body, bodyB: Phaser.Physics.P2.Body) {
+	/*beginContact(bodyA: Phaser.Physics.P2.Body, bodyB: Phaser.Physics.P2.Body) {
+			debugger;
+			super.beginContact(bodyA, bodyB);
+		}
+		endContact(bodyA: Phaser.Physics.P2.Body, bodyB: Phaser.Physics.P2.Body) {
 	}*/
 }
 

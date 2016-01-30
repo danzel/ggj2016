@@ -8,6 +8,7 @@ class MeleeUnit extends SummonedUnit {
 			size: 20,
 			health: 40,
 			movementForce: 30,
+			massMultiplier: 1,
 			collisionGroup: Globals.groundCreatureCollisionGroup,
 			collidesWith: [Globals.lambCollisionGroup, Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup, Globals.flyingSensorCollisionGroup],
 			sprite: 'warrior2'

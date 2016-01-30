@@ -21,7 +21,14 @@ class SummonedUnit extends CombatUnit {
 		game.physics.p2.enable(this.sprite, true);
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
 		(<any>this.body).combatUnit = this;
-		this.body.setCircle(def.size);
+		
+		if (def.capsuleLength) {
+			this.body.clearShapes();
+			this.body.addCapsule(def.capsuleLength, def.size);
+		} else {
+			this.body.setCircle(def.size);
+		}
+		this.body.mass *= def.massMultiplier;
 		this.body.damping = 0.9999;
 		this.body.fixedRotation = true;
 		this.body.setMaterial(Materials.groundUnitMaterial);
