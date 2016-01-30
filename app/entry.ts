@@ -31,11 +31,11 @@ class AppEntry {
 		this.game.physics.startSystem(Phaser.Physics.P2JS);
 		this.game.physics.p2.setImpactEvents(true);
 		this.game.physics.p2.restitution = 0.8;
+		this.game.add.sprite(0, 0, 'bg');
 		Globals.init(this.game);
 		Materials.init(this.game);
 		this.game.input.gamepad.start();
 		
-		this.game.add.sprite(0, 0, 'bg');
 
 		this.players.push(new Player(this.game, 1, this.game.input.gamepad.pad1, this.game.input.gamepad.pad2));
 		this.players.push(new Player(this.game, 2, this.game.input.gamepad.pad2, this.game.input.gamepad.pad1));

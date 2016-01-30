@@ -13,6 +13,7 @@ class FlyingUnit extends SummonedUnit {
 		super(game, player, x, y, {
 			size: 16,
 			health: 40,
+			layer: Globals.layerFlying,
 			movementForce: 30,
 			massMultiplier: 1,
 			collisionGroup: Globals.flyingCreatureCollisionGroup,

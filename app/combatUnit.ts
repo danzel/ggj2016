@@ -1,4 +1,5 @@
 import GameObject = require('./gameObject');
+import Globals = require('./globals');
 import HealthBar = require('./healthBar');
 import Player = require('./player');
 
@@ -12,7 +13,7 @@ class CombatUnit implements GameObject {
 	player: Player;
 
 	constructor(game: Phaser.Game, player: Player, maxHealth: number, playerNumber: number) {
-		this.graphics = game.add.graphics(0, 0);
+		this.graphics = Globals.layerUi.add(new Phaser.Graphics(game));
 		this.player = player || (<Player><any>this);
 		this.maxHealth = maxHealth;
 		this.health = this.maxHealth;

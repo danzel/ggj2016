@@ -7,6 +7,8 @@ interface SummonedUnitDef {
 	
 	sprite: string;
 	
+	layer: Phaser.Group;
+	
 	//If set we are a capsule
 	capsuleLength?: number;
 	

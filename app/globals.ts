@@ -12,6 +12,10 @@ class Globals {
 	static flyingSensorCollisionGroup: Phaser.Physics.P2.CollisionGroup;
 	
 	
+	static layerUi: Phaser.Group;
+	static layerFlying: Phaser.Group;
+	static layerGround: Phaser.Group;
+	
 	static lambSacrificed: LiteEvent<Lamb> = new LiteEvent<Lamb>();  
 	
 	static gameObjects: Array<GameObject> = [];
@@ -23,6 +27,10 @@ class Globals {
 		this.groundCreatureCollisionGroup = game.physics.p2.createCollisionGroup();
 		this.flyingCreatureCollisionGroup = game.physics.p2.createCollisionGroup();
 		this.flyingSensorCollisionGroup = game.physics.p2.createCollisionGroup();
+		
+		this.layerGround = game.add.group();
+		this.layerFlying = game.add.group();
+		this.layerUi = game.add.group();
 		
 		game.physics.p2.updateBoundsCollisionGroup();
 	}

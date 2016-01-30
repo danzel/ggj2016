@@ -7,6 +7,7 @@ class MeleeUnit extends SummonedUnit {
 		super(game, player, x, y, {
 			size: 20,
 			health: 40,
+			layer: Globals.layerGround,
 			movementForce: 30,
 			massMultiplier: 1,
 			collisionGroup: Globals.groundCreatureCollisionGroup,

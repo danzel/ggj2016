@@ -13,7 +13,7 @@ class Lamb implements GameObject {
 
 	constructor(private game: Phaser.Game, x: number, y: number) { //TODO: Type
 		
-		this.sprite = game.add.sprite(x, y, 'sheeple');
+		this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, x, y, 'sheeple'));
 		this.sprite.smoothed = false;
 		this.sprite.scale.set(1.3);
 

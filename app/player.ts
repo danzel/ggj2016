@@ -33,9 +33,9 @@ class Player extends CombatUnit {
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
 		if (id == 1) {
-			this.sprite = game.add.sprite(100, 300, 'player' + id);
+			this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, 100, 300, 'player' + id));
 		} else {
-			this.sprite = game.add.sprite(1280 - 100, 300, 'player' + id);
+			this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, 1280 - 100, 300, 'player' + id));
 		}
 		this.sprite.smoothed = false;
 		this.sprite.scale.set(1.2);

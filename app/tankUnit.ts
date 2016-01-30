@@ -8,6 +8,7 @@ class TankUnit extends SummonedUnit {
 			capsuleLength: 40,
 			size: 30,
 			health: 50,
+			layer: Globals.layerGround,
 			movementForce: 500,
 			massMultiplier: 50,
 			collisionGroup: Globals.groundCreatureCollisionGroup,

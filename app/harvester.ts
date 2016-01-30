@@ -13,7 +13,7 @@ class Harvester extends CombatUnit {
 		super(game, player, 20, player.id);
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
-		this.sprite = game.add.sprite(x, y, 'harvester' + player.id);
+		this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, x, y, 'harvester' + player.id));
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
 
@@ -45,7 +45,7 @@ class Harvester extends CombatUnit {
 	}
 
 	lambSacrificed(lamb: Lamb) {
-		if (this.target == lamb) {
+		if (this.target && this.target == lamb) {
 			lamb.beingDragged = false;
 			this.game.physics.p2.removeSpring(this.targetSpring);
 			this.target = null;
@@ -105,7 +105,6 @@ class Harvester extends CombatUnit {
 	}
 	
 	onDead() {
-		debugger;
 		this.lambSacrificed(this.target);
 	}
 }
