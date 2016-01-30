@@ -19,13 +19,16 @@ class Player extends CombatUnit {
 	springs: Array<Phaser.Physics.P2.Spring> = [];
 	maxFollowers: number = 1;
 
+	gamepad: Phaser.SinglePad;
 	private buttonA = false;
 	private buttonB = false;
 	private buttonX = false;
 	private buttonY = false;
 
-	constructor(private game: Phaser.Game, public id: number, private gamepad: Phaser.SinglePad) {
+	constructor(private game: Phaser.Game, public id: number, private gamepadMain: Phaser.SinglePad, private gamepadAlt: Phaser.SinglePad) {
 		super(game, null, 100); //fuck can't use this here, CombatUnit fixes this
+		
+		this.gamepad = this.gamepadMain;
 		
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
@@ -147,7 +150,7 @@ class Player extends CombatUnit {
 		//this.sprite.body.force.y = this.gamepad.axis(1) * 100;
 		
 		
-		this.mana -= this.game.time.physicsElapsed * 2;
+		this.mana += this.game.time.physicsElapsed * 2;
 		if (this.mana < 0) {
 			
 			//TODO: gods are angry at you
@@ -157,7 +160,15 @@ class Player extends CombatUnit {
 		
 		super.update();
 	}
-
+	
+	swapGamepad() {
+		if (this.gamepadAlt === null)
+			return;
+		var temp = this.gamepadMain;
+		this.gamepadMain = this.gamepadAlt;
+		this.gamepadAlt = temp;
+		this.gamepad = this.gamepadMain;
+	}
 }
 
 export = Player;

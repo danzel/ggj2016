@@ -13,6 +13,8 @@ class AppEntry {
 	
 	players: Array<Player> = [];
 	sacrificePits: Array<SacrificePit> = [];
+	
+	swapButtonDown: boolean = false;
 
 	constructor() {
 		this.game = new Phaser.Game(1280, 720, Phaser.AUTO, '', this, false, true, null);
@@ -35,8 +37,8 @@ class AppEntry {
 		
 		this.game.add.sprite(0, 0, 'bg');
 
-		this.players.push(new Player(this.game, 1, this.game.input.gamepad.pad1));
-		this.players.push(new Player(this.game, 2, this.game.input.gamepad.pad2));
+		this.players.push(new Player(this.game, 1, this.game.input.gamepad.pad1, this.game.input.gamepad.pad2));
+		this.players.push(new Player(this.game, 2, this.game.input.gamepad.pad2, this.game.input.gamepad.pad1));
 
 		this.sacrificePits.push(new SacrificePit(this.game, this.players[0]));
 		this.sacrificePits.push(new SacrificePit(this.game, this.players[1]));
@@ -67,6 +69,18 @@ class AppEntry {
 		this.ui.update();
 		//debugger;
 		//this.game.time.physicsElapsed
+		
+		if (this.game.input.gamepad.pad1.connected) {			
+			if (this.game.input.gamepad.pad1.getButton(Phaser.Gamepad.XBOX360_BACK).isDown) {
+				if (!this.swapButtonDown) {
+					this.swapButtonDown = true;
+					this.players[0].swapGamepad();
+					this.players[1].swapGamepad();
+				}
+			} else {
+				this.swapButtonDown = false;
+			}
+		}
 	}
 }
 
