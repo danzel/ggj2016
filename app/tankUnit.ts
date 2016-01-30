@@ -10,6 +10,7 @@ class TankUnit extends SummonedUnit {
 
 			health: 50,
 			dps: 10,
+			desiredTargetDistance: 0,
 
 			movementForce: 500,
 			massMultiplier: 50,

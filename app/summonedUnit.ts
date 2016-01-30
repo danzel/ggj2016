@@ -11,7 +11,7 @@ class SummonedUnit extends CombatUnit {
 
 	target: CombatUnit;
 
-	constructor(protected game: Phaser.Game, player: Player, x: number, y: number, private def: SummonedUnitDef) {
+	constructor(protected game: Phaser.Game, player: Player, x: number, y: number, protected def: SummonedUnitDef) {
 		super(game, player, def.health, player.id);
 
 		this.sprite = def.layer.add(new Phaser.Sprite(game, x, y, def.sprite));
@@ -21,7 +21,7 @@ class SummonedUnit extends CombatUnit {
 		game.physics.p2.enable(this.sprite); //DEBUG ON HERE
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
 		(<any>this.body).combatUnit = this;
-		
+
 		if (def.capsuleLength) {
 			this.body.clearShapes();
 			this.body.addCapsule(def.capsuleLength, def.size);
@@ -118,11 +118,13 @@ class SummonedUnit extends CombatUnit {
 
 		let dist = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
 
-		xDiff /= dist;
-		yDiff /= dist;
+		if (dist > this.def.desiredTargetDistance) {
+			xDiff /= dist;
+			yDiff /= dist;
 
-		let force = this.def.movementForce;
-		this.body.applyForce([-xDiff * force, -yDiff * force], 0, 0);
+			let force = this.def.movementForce;
+			this.body.applyForce([-xDiff * force, -yDiff * force], 0, 0);
+		}
 		this.rotateSprite(-xDiff, -yDiff);
 	}
 
@@ -155,7 +157,7 @@ class SummonedUnit extends CombatUnit {
 			if (cu.player == this.player) {
 				continue;
 			}
-			
+
 			if (!this.canAttack(cu)) {
 				continue;
 			}
@@ -167,12 +169,11 @@ class SummonedUnit extends CombatUnit {
 			}
 		}
 	}
-	
+
 	protected canAttack(cu: CombatUnit) {
 		if ((<any>this).isFlying) {
 			return true;
 		}
-		//TODO: Ranged unit can attack flying
 		if ((<any>cu).isFlying) {
 			return false;
 		}

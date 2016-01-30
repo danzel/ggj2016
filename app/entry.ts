@@ -64,6 +64,9 @@ class AppEntry {
 			
 			Globals.gameObjects[i].update();
 		}
+		for (let i = Globals.shots.length - 1; i >= 0; i--) {
+			Globals.shots[i].update();
+		}
 		
 		
 		this.ui.update();

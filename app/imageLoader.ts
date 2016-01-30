@@ -26,6 +26,7 @@ class ImageLoader {
 		
 		game.load.image('flyingshadow', 'img/harpyshadow.png');
 		game.load.image('blood', 'img/blood.png');
+		game.load.image('shot', 'img/d-thrower-attk.png');
 	}
 }
 

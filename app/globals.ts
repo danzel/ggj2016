@@ -2,6 +2,7 @@ import BloodSplatterCollection = require('./bloodSplatterCollection');
 import GameObject = require('./gameObject');
 import Lamb = require('./lamb');
 import LiteEvent = require('./liteEvent');
+import Shot = require('./shot');
 
 class Globals {
 	
@@ -22,6 +23,7 @@ class Globals {
 	
 	static gameObjects: Array<GameObject> = [];
 	static bloodSplatters: BloodSplatterCollection;
+	static shots: Array<Shot> = [];
 	
 	static init(game: Phaser.Game) {
 		this.game = game;

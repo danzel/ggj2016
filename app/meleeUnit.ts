@@ -9,6 +9,7 @@ class MeleeUnit extends SummonedUnit {
 			
 			health: 40,
 			dps: 20,
+			desiredTargetDistance: 0,
 
 			movementForce: 30,
 			massMultiplier: 1,

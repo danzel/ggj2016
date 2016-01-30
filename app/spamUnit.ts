@@ -9,6 +9,7 @@ class SpamUnit extends SummonedUnit {
 
 			health: 10,
 			dps: 5,
+			desiredTargetDistance: 0,
 
 			movementForce: 30,
 			massMultiplier: 0.5,
