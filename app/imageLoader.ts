@@ -32,6 +32,8 @@ class ImageLoader {
 		
 		game.load.image('blood', 'img/blood.png');
 		game.load.image('shot', 'img/shot.png');
+		game.load.image('selector1', 'img/t1-selector.png');
+		game.load.image('selector2', 'img/t2-selector.png');
 		
 		game.load.spritesheet('sheeple-walk', 'img/sheeple-w.png', 32, 32, 2);
 		game.load.image('shadow-sheeple', 'img/shadows/sheeple.png');

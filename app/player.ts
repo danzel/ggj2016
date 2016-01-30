@@ -1,4 +1,5 @@
 import CombatUnit = require('./combatUnit');
+import ControlMode = require('./controlMode');
 import FlyingUnit = require('./flyingUnit');
 import GameObject = require('./gameObject');
 import Globals = require('./globals');
@@ -30,7 +31,9 @@ class Player extends CombatUnit {
 	private buttonY = false;
 	private buttonRightBumper = false;
 	private buttonLeftBumper = false;
-
+	controlMode: ControlMode = ControlMode.PLAYER;
+	selectedItem: number = 0;
+	
 	constructor(private game: Phaser.Game, public id: number, private gamepadMain: Phaser.SinglePad, private gamepadAlt: Phaser.SinglePad) {
 		super(game, null, 100, id); //fuck can't use this here, CombatUnit fixes this
 		
@@ -108,6 +111,29 @@ class Player extends CombatUnit {
 		//TODO: this means the player always has really good control, if we want them to be pushed around this won't work.
 		this.body.setZeroVelocity();
 
+		if (this.gamepad.connected) {
+			switch (this.controlMode) {
+				case ControlMode.PLAYER:
+					this.updatePlayerControls();
+					break;
+				case ControlMode.BUILD:
+					this.updateBuildControls();
+					break;
+			}
+		}
+		
+		this.mana -= this.game.time.physicsElapsed * 1;
+		if (this.mana < 0) {
+			
+			//TODO: gods are angry at you
+			this.health += this.mana;
+			this.mana = 0;
+		}
+		
+		super.update();
+	}
+	
+	private updatePlayerControls() {
 		let x = this.gamepad.axis(0);
 		let y = this.gamepad.axis(1);
 		this.body.moveRight(x * 400);
@@ -119,72 +145,11 @@ class Player extends CombatUnit {
 		this.shadow.x = this.sprite.x + 3;
 		this.shadow.y = this.sprite.y + 3;
 
-		if (this.gamepad.connected) {
-			let nowA = this.gamepad.getButton(Phaser.Gamepad.XBOX360_A).isDown;
-			let justA = !this.buttonA && nowA;
-			this.buttonA = nowA;
-
-			let nowB = this.gamepad.getButton(Phaser.Gamepad.XBOX360_B).isDown;
-			let justB = !this.buttonB && nowB;
-			this.buttonB = nowB;
-
-			let nowX = this.gamepad.getButton(Phaser.Gamepad.XBOX360_X).isDown;
-			let justX = !this.buttonX && nowX;
-			this.buttonX = nowX;
-
-			let nowY = this.gamepad.getButton(Phaser.Gamepad.XBOX360_Y).isDown;
-			let justY = !this.buttonY && nowY;
-			this.buttonY = nowY;
-
-			let nowRB = this.gamepad.getButton(Phaser.Gamepad.XBOX360_RIGHT_BUMPER).isDown;
-			let justRB = !this.buttonRightBumper && nowRB;
-			this.buttonRightBumper = nowRB;
-
-			let nowLB = this.gamepad.getButton(Phaser.Gamepad.XBOX360_LEFT_BUMPER).isDown;
-			let justLB = !this.buttonLeftBumper && nowLB;
-			this.buttonLeftBumper = nowLB;
-
-			let spawnX = this.sprite.x + 70 * Math.sin((this.sprite.angle + 90) * Math.PI / 180);
-			let spawnY = this.sprite.y - 70 * Math.cos((this.sprite.angle + 90) * Math.PI / 180);
-
-			if (justA && this.mana >= 30) {
-				this.mana -= 30;
-				Globals.gameObjects.push(new Harvester(this.game, this, spawnX, spawnY));
-			}
-
-
-			if (justB && this.mana >= 30) {
-				this.mana -= 30;
-
-				Globals.gameObjects.push(new MeleeUnit(this.game, this, spawnX, spawnY));
-			}
-
-			if (justX && this.mana >= 30) {
-				this.mana -= 30;
-
-				Globals.gameObjects.push(new TankUnit(this.game, this, spawnX, spawnY));
-			}
-
-			if (justY && this.mana >= 30) {
-				this.mana -= 30;
-
-				Globals.gameObjects.push(new FlyingUnit(this.game, this, spawnX, spawnY));
-			}
-
-			if (justRB && this.mana >= 30) {
-				this.mana -= 30;
-
-				Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX + 10, spawnY + 10));
-				Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX - 10, spawnY + 10));
-				Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX + 10, spawnY - 10));
-				Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX - 10, spawnY - 10));
-			}
-
-			if (justLB && this.mana >= 30) {
-				this.mana -= 30;
-
-				Globals.gameObjects.push(new ShootingUnit(this.game, this, spawnX, spawnY));
-			}
+		let nowA = this.gamepad.getButton(Phaser.Gamepad.XBOX360_A).isDown;
+		let justA = !this.buttonA && nowA;
+		this.buttonA = nowA;
+		if (justA) {
+			this.controlMode = ControlMode.BUILD;
 		}
 		
 		
@@ -192,17 +157,86 @@ class Player extends CombatUnit {
 
 		//this.sprite.body.force.x = this.gamepad.axis(0) * 100;
 		//this.sprite.body.force.y = this.gamepad.axis(1) * 100;
-		
-		
-		this.mana -= this.game.time.physicsElapsed * 1;
-		if (this.mana < 0) {
-			
-			//TODO: gods are angry at you
-			this.health += this.mana;
-			this.mana = 0;
-		}
+	}
+	
+	private updateBuildControls() {
+		let nowA = this.gamepad.getButton(Phaser.Gamepad.XBOX360_A).isDown;
+		let justA = !this.buttonA && nowA;
+		this.buttonA = nowA;
 
-		super.update();
+		let nowB = this.gamepad.getButton(Phaser.Gamepad.XBOX360_B).isDown;
+		let justB = !this.buttonB && nowB;
+		this.buttonB = nowB;
+
+		let nowRB = this.gamepad.getButton(Phaser.Gamepad.XBOX360_RIGHT_BUMPER).isDown;
+		let justRB = !this.buttonRightBumper && nowRB;
+		this.buttonRightBumper = nowRB;
+
+		let nowLB = this.gamepad.getButton(Phaser.Gamepad.XBOX360_LEFT_BUMPER).isDown;
+		let justLB = !this.buttonLeftBumper && nowLB;
+		this.buttonLeftBumper = nowLB;
+		
+		if (justB)
+			this.controlMode = ControlMode.PLAYER;
+		if (justLB)
+			this.selectedItem = (this.selectedItem + 5) % 6;
+		if (justRB)
+			this.selectedItem = (this.selectedItem + 1) % 6;
+		if (justA) {
+			var bought = false;
+			let spawnX = this.sprite.x + 70 * Math.sin((this.sprite.angle + 90) * Math.PI / 180);
+			let spawnY = this.sprite.y - 70 * Math.cos((this.sprite.angle + 90) * Math.PI / 180);
+
+			switch (this.selectedItem) {
+				case 0:
+					if (this.mana >= 30) {
+						bought = true;
+						this.mana -= 30;
+						Globals.gameObjects.push(new Harvester(this.game, this, spawnX, spawnY));
+					}
+					break;
+				case 1:
+					if (this.mana >= 30) {
+						bought = true;
+						this.mana -= 30;
+						Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX + 10, spawnY + 10));
+						Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX - 10, spawnY + 10));
+						Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX + 10, spawnY - 10));
+						Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX - 10, spawnY - 10));
+					}
+					break;
+				case 2:
+					if (this.mana >= 30) {
+						bought = true;
+						this.mana -= 30;
+						Globals.gameObjects.push(new MeleeUnit(this.game, this, spawnX, spawnY));
+					}
+					break;
+				case 3:					
+					if (this.mana >= 30) {
+						bought = true;
+						this.mana -= 30;
+						Globals.gameObjects.push(new TankUnit(this.game, this, spawnX, spawnY));
+					}
+					break;
+				case 4:
+					if (this.mana >= 30) {
+						bought = true;
+						this.mana -= 30;
+						Globals.gameObjects.push(new FlyingUnit(this.game, this, spawnX, spawnY));
+					}
+					break;
+				case 5:
+					if (this.mana >= 30) {
+						bought = true;
+						this.mana -= 30;
+						Globals.gameObjects.push(new ShootingUnit(this.game, this, spawnX, spawnY));
+					}
+					break;
+			}
+			if (bought)
+				this.controlMode = ControlMode.PLAYER;
+		}		
 	}
 
 	swapGamepad() {
