@@ -83,6 +83,8 @@ class Player extends CombatUnit {
 		if (!lamb.beingDragged && this.followers.length < this.maxFollowers && this.followers.indexOf(lamb) == -1) {
 			lamb.beingDragged = true;
 			this.followers.push(lamb);
+			Globals.soundscape.addScream();
+			Globals.soundscape.addAttack();
 
 			this.springs.push(this.game.physics.p2.createSpring(body1, body2, 45, 100, 0.7));
 		}

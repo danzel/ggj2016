@@ -1,5 +1,6 @@
 class Soundscape {
 	screamEnabled: boolean = true;
+	attackEnabled: boolean = true;
 	
 	constructor(private game: Phaser.Game) {
 		game.time.events.add(Math.random() * 500 + 500, this.demonSound, this);		
@@ -16,6 +17,19 @@ class Soundscape {
 	
 	private resetScreamSound() {
 		this.screamEnabled = true;
+	}
+	
+	addAttack() {
+		if (!this.attackEnabled)
+			return;
+		var attack = this.game.add.audio('attack' + Math.floor(Math.random() * 4), 0.3);
+		attack.play();
+		this.attackEnabled = false;		
+		this.game.time.events.add(Math.random() * 700 + 100, this.resetAttackSound, this);		
+	}
+	
+	private resetAttackSound() {
+		this.attackEnabled = true;
 	}
 	
 	private demonSound() {

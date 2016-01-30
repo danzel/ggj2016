@@ -61,6 +61,11 @@ class ImageLoader {
 		game.load.audio('demon2', 'audio/demon/48688__sea-fury__monster-4.wav');
 		game.load.audio('demon3', 'audio/demon/49127__aesqe__monster-growl-01.wav');
 		game.load.audio('demon4', 'audio/demon/50881__gabemiller74__werewolf.wav');
+		game.load.audio('attack0', 'audio/attack/44203__zolopher__splat_0.wav');
+		game.load.audio('attack1', 'audio/attack/54807__mwl500__good-kick-in-the-head-sound.wav');
+		game.load.audio('attack2', 'audio/attack/89769__cgeffex__fist-punch-3.wav');
+		game.load.audio('attack3', 'audio/attack/118513__thefsoundman__punch-02.wav');
+		
 	}
 }
 
