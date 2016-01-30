@@ -11,7 +11,7 @@ class ShootingUnit extends SummonedUnit {
 			capsuleLength: 30,
 			size: 12,
 
-			health: 40,
+			health: 30,
 			dps: 0, //hack fml
 			desiredTargetDistance: 200,
 

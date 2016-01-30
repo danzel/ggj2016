@@ -25,7 +25,9 @@ class ImageLoader {
 		
 		game.load.image('flyingshadow', 'img/harpyshadow.png');
 		game.load.image('blood', 'img/blood.png');
-		game.load.image('shot', 'img/creeps/t2-thrower-attk.png');
+		game.load.image('shot', 'img/shot.png');
+		
+		game.load.spritesheet('sheeple-walk', 'img/sheeple-w.png', 32, 32, 2);
 	}
 }
 
