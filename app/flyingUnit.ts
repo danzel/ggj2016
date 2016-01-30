@@ -9,12 +9,12 @@ class FlyingUnit extends SummonedUnit {
 	
 	constructor(game: Phaser.Game, player: Player, x: number, y: number) {
 		super(game, player, x, y, {
-			size: 20,
+			size: 16,
 			health: 40,
 			movementForce: 30,
 			collisionGroup: Globals.flyingCreatureCollisionGroup,
 			collidesWith: [Globals.flyingCreatureCollisionGroup],
-			sprite: null
+			sprite: 'flying2'
 		});
 		
 		//Hack: Undo the default collision handlers:
@@ -23,7 +23,7 @@ class FlyingUnit extends SummonedUnit {
 		
 		//Now create a sensor and use that instead
 		this.circleBody = game.physics.p2.createBody(x, y, 1);
-		let shape = this.circleBody.addCircle(22);
+		let shape = this.circleBody.addCircle(20);
 		shape.sensor = true;
 		game.physics.p2.addBody(this.circleBody);
 

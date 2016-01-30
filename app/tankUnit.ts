@@ -10,7 +10,7 @@ class TankUnit extends SummonedUnit {
 			movementForce: 35,
 			collisionGroup: Globals.groundCreatureCollisionGroup,
 			collidesWith: [Globals.lambCollisionGroup, Globals.playerCollisionGroup, Globals.pitCollisionGroup, Globals.groundCreatureCollisionGroup],
-			sprite: 'warrior2'
+			sprite: 'tank2'
 		});
 	}
 }

@@ -13,7 +13,7 @@ class Harvester extends CombatUnit {
 		super(game, player, 20);
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
-		this.sprite = game.add.sprite(x, y);
+		this.sprite = game.add.sprite(x, y, 'harvester2');
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
 
@@ -77,7 +77,9 @@ class Harvester extends CombatUnit {
 
 			let force = 30;
 			this.body.applyForce([-xDiff * force, -yDiff * force], 0, 0);
+			this.rotateSprite(-xDiff, -yDiff);
 		}
+		
 		super.update();
 	}
 
