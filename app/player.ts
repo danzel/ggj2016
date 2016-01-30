@@ -109,6 +109,7 @@ class Player extends CombatUnit {
 		this.body.setZeroVelocity();
 
 		if (this.gamepad.connected) {
+			this.gamepad.deadZone = 0.1;
 			this.updateControls();
 		}
 
@@ -126,7 +127,7 @@ class Player extends CombatUnit {
 	private updateControls() {
 		this.updatePlayerControls();
 		this.updateBuildControls();
-		
+
 		this.timeBuildVisible += this.game.time.physicsElapsed;
 	}
 
@@ -166,6 +167,23 @@ class Player extends CombatUnit {
 		}
 		if (justRB) {
 			this.selectedItem = (this.selectedItem + 1) % 6;
+			this.timeBuildVisible = 0;
+		}
+
+		let x = this.gamepad.axis(2);
+		let y = this.gamepad.axis(3);
+
+		let dist = Math.sqrt(x * x + y * y);
+		if (dist > 0.5) {
+			let angle = Math.atan2(y, x) * 180 / Math.PI;
+			angle += 90;
+			angle = (angle + 360) % 360;
+			console.log(angle);
+			
+			let index = Math.floor((angle + (360 / 12)) / (360 / 6)) % 6;
+			console.log(index);
+			
+			this.selectedItem = index;
 			this.timeBuildVisible = 0;
 		}
 	}
