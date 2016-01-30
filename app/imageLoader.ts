@@ -38,6 +38,12 @@ class ImageLoader {
 		
 		game.load.spritesheet('sheeple-walk', 'img/sheeple-w.png', 32, 32, 2);
 		game.load.image('shadow-sheeple', 'img/shadows/sheeple.png');
+		
+		
+		game.load.image('healthmanabg1', 'img/healthmanabg1.png');
+		game.load.image('healthmanabg2', 'img/healthmanabg2.png');
+		game.load.image('healthbar', 'img/healthbar.png');
+		game.load.image('manabar', 'img/manabar.png');
 	}
 }
 

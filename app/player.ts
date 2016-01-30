@@ -12,7 +12,7 @@ import SpamUnit = require('./spamUnit');
 import TankUnit = require('./tankUnit');
 
 class Player extends CombatUnit {
-	maxMana: number = 100;
+	maxMana: number = 92;
 
 	mana: number = 50;
 
