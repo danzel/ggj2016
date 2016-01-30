@@ -5,6 +5,8 @@ interface SummonedUnitDef {
 	collisionGroup: Phaser.Physics.P2.CollisionGroup;
 	collidesWith: Array<Phaser.Physics.P2.CollisionGroup>;
 	
+	dps: number;
+	
 	sprite: string;
 	
 	layer: Phaser.Group;

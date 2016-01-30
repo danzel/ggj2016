@@ -14,10 +14,14 @@ class FlyingUnit extends SummonedUnit {
 	constructor(game: Phaser.Game, player: Player, x: number, y: number) {
 		super(game, player, x, y, {
 			size: 16,
+
 			health: 40,
-			layer: Globals.layerFlying,
+			dps: 10,
+			
 			movementForce: 30,
 			massMultiplier: 1,
+
+			layer: Globals.layerFlying,
 			collisionGroup: Globals.flyingCreatureCollisionGroup,
 			collidesWith: [Globals.flyingCreatureCollisionGroup, Globals.flyingSensorCollisionGroup],
 			sprite: 'flying' + player.id
@@ -62,6 +66,7 @@ class FlyingUnit extends SummonedUnit {
 	}
 
 	onDead() {
+		this.shadow.destroy();
 		this.circleBody.removeFromWorld();
 		this.circleBody.clearShapes();
 	}

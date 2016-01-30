@@ -11,6 +11,8 @@ class ImageLoader {
 		game.load.image('tank1', 'img/h-tank.png');
 		game.load.image('flying1', 'img/h-harpy.png');
 		game.load.image('harvester1', 'img/h-thrall.png');
+		game.load.image('spam1', 'img/d-shoal.png');
+		game.load.image('thrower1', 'img/d-thrower.png');
 		
 		game.load.image('altar2', 'img/altar-2.png');
 		game.load.image('player2', 'img/d-monarch.png');
@@ -18,6 +20,8 @@ class ImageLoader {
 		game.load.image('tank2', 'img/d-tank.png');
 		game.load.image('flying2', 'img/d-harpy.png');
 		game.load.image('harvester2', 'img/d-thrall.png');
+		game.load.image('spam2', 'img/d-shoal.png');
+		game.load.image('thrower2', 'img/d-thrower.png');
 		
 		game.load.image('flyingshadow', 'img/harpyshadow.png');
 		
