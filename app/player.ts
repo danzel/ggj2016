@@ -117,7 +117,7 @@ class Player extends CombatUnit {
 		if (this.mana < 0) {
 			
 			//TODO: gods are angry at you
-			this.health += this.mana;
+			this.takeDamage(-this.mana);
 			this.mana = 0;
 		}
 
