@@ -3,6 +3,8 @@ import GameObject = require('./gameObject');
 import Lamb = require('./lamb');
 import LiteEvent = require('./liteEvent');
 import Shot = require('./shot');
+import Soul = require('./soul');
+import SoulCollection = require('./soulCollection');
 
 class Globals {
 	
@@ -24,6 +26,7 @@ class Globals {
 	static gameObjects: Array<GameObject> = [];
 	static bloodSplatters: BloodSplatterCollection;
 	static shots: Array<Shot> = [];
+	static souls: SoulCollection;
 	
 	static init(game: Phaser.Game) {
 		this.game = game;
@@ -39,12 +42,17 @@ class Globals {
 		this.layerUi = game.add.group();
 
 		this.bloodSplatters = new BloodSplatterCollection(game);
+		this.souls = new SoulCollection(game);
 		
 		game.physics.p2.updateBoundsCollisionGroup();
 	}
 	
 	static addBloodSplatter(x: number, y: number, duration: number, numParticles: number) {
 		this.bloodSplatters.add(x, y, duration, numParticles);
+	}
+	
+	static addSoul(x: number, y: number) {
+		this.souls.add(x, y);
 	}
 }
 
