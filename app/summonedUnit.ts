@@ -14,11 +14,11 @@ class SummonedUnit extends CombatUnit {
 	constructor(protected game: Phaser.Game, player: Player, x: number, y: number, private def: SummonedUnitDef) {
 		super(game, player, def.health, player.id);
 
-		this.sprite = game.add.sprite(x, y, def.sprite);
+		this.sprite = def.layer.add(new Phaser.Sprite(game, x, y, def.sprite));
 		this.sprite.anchor.x = 0.5;
 		this.sprite.anchor.y = 0.5;
 
-		game.physics.p2.enable(this.sprite);
+		game.physics.p2.enable(this.sprite); //DEBUG ON HERE
 		this.body = <Phaser.Physics.P2.Body>this.sprite.body;
 		(<any>this.body).combatUnit = this;
 		
@@ -91,7 +91,7 @@ class SummonedUnit extends CombatUnit {
 		}
 
 		if (this.collidingWith.length != 0) {
-			let damage = 10 * this.game.time.physicsElapsed / this.collidingWith.length;
+			let damage = this.def.dps * this.game.time.physicsElapsed / this.collidingWith.length;
 
 			for (let i = this.collidingWith.length - 1; i >= 0; i--) {
 				let c = this.collidingWith[i];

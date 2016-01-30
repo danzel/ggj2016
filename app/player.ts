@@ -7,6 +7,8 @@ import Lamb = require('./lamb');
 import Materials = require('./materials');
 import MeleeUnit = require('./meleeUnit');
 import SacrificePit = require('./sacrificePit');
+import ShootingUnit = require('./shootingUnit');
+import SpamUnit = require('./spamUnit');
 import TankUnit = require('./tankUnit');
 
 class Player extends CombatUnit {
@@ -24,6 +26,8 @@ class Player extends CombatUnit {
 	private buttonB = false;
 	private buttonX = false;
 	private buttonY = false;
+	private buttonRightBumper = false;
+	private buttonLeftBumper = false;
 
 	constructor(private game: Phaser.Game, public id: number, private gamepadMain: Phaser.SinglePad, private gamepadAlt: Phaser.SinglePad) {
 		super(game, null, 100, id); //fuck can't use this here, CombatUnit fixes this
@@ -33,9 +37,9 @@ class Player extends CombatUnit {
 		Globals.lambSacrificed.on((lamb) => this.lambSacrificed(lamb));
 
 		if (id == 1) {
-			this.sprite = game.add.sprite(100, 300, 'player' + id);
+			this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, 100, 300, 'player' + id));
 		} else {
-			this.sprite = game.add.sprite(1280 - 100, 300, 'player' + id);
+			this.sprite = Globals.layerGround.add(new Phaser.Sprite(game, 1280 - 100, 300, 'player' + id));
 		}
 		this.sprite.smoothed = false;
 		this.sprite.scale.set(1.2);
@@ -115,6 +119,14 @@ class Player extends CombatUnit {
 			let justY = !this.buttonY && nowY;
 			this.buttonY = nowY;
 
+			let nowRB = this.gamepad.getButton(Phaser.Gamepad.XBOX360_RIGHT_BUMPER).isDown;
+			let justRB = !this.buttonRightBumper && nowRB;
+			this.buttonRightBumper = nowRB;
+
+			let nowLB = this.gamepad.getButton(Phaser.Gamepad.XBOX360_LEFT_BUMPER).isDown;
+			let justLB = !this.buttonLeftBumper && nowLB;
+			this.buttonLeftBumper = nowLB;
+
 			let spawnX = this.sprite.x + 70 * Math.sin((this.sprite.angle + 90) * Math.PI / 180);
 			let spawnY = this.sprite.y - 70 * Math.cos((this.sprite.angle + 90) * Math.PI / 180);
 
@@ -140,6 +152,21 @@ class Player extends CombatUnit {
 				this.mana -= 30;
 
 				Globals.gameObjects.push(new FlyingUnit(this.game, this, spawnX, spawnY));
+			}
+
+			if (justRB && this.mana >= 30) {
+				this.mana -= 30;
+
+				Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX + 10, spawnY + 10));
+				Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX - 10, spawnY + 10));
+				Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX + 10, spawnY - 10));
+				Globals.gameObjects.push(new SpamUnit(this.game, this, spawnX - 10, spawnY - 10));
+			}
+
+			if (justLB && this.mana >= 30) {
+				this.mana -= 30;
+
+				Globals.gameObjects.push(new ShootingUnit(this.game, this, spawnX, spawnY));
 			}
 		}
 		
