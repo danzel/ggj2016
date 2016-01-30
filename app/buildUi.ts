@@ -28,6 +28,7 @@ class BuildUi {
 		}
 
 		this.text = new Phaser.Text(game, -100, -110, "Shooter", {
+			font: '30pt MetalMacabre,fantasy',
 			boundsAlignH: 'center',
 			stroke: '#ffffff',
 			strokeThickness: 4
