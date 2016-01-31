@@ -7,7 +7,7 @@ var webpack = require("webpack");
 var webpackConfig = require("./webpack.config.js");
 
 
-gulp.task("default", ["webpack", 'copy-img', 'copy-font']);
+gulp.task("default", ["webpack", 'copy-img', 'copy-font', 'copy-audio']);
 
 
 gulp.task('webpack', function (callback) {
@@ -29,6 +29,9 @@ gulp.task('webpack', function (callback) {
     });
 });
 
+gulp.task('copy-audio', function () {
+	gulp.src(['audio/**/*']).pipe(gulp.dest('dist/audio'));
+})
 gulp.task('copy-img', function () {
 	gulp.src(['img/**/*']).pipe(gulp.dest('dist/img'));
 })
