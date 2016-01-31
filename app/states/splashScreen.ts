@@ -6,9 +6,10 @@ import Hack = require('./hack');
 class SplashScreen implements GameState {
 
 	sprite: Phaser.Sprite;
-	text: Phaser.Text;
 	
 	initialTextWidth: number;
+	
+	hackover: Phaser.Graphics;
 	
 	constructor(private game: Phaser.Game) {
 		this.sprite = game.add.sprite(0, 0, 'splash');
@@ -16,39 +17,29 @@ class SplashScreen implements GameState {
 
 		this.createText();
 		
-		this.initialTextWidth = this.text.width;
-		
 	}
 	
 	createText() {
-		this.text = new Phaser.Text(this.game, 1280 / 2, 720 - 120, 'Press Start to Play', {
-			font: '30pt MetalMacabre,fantasy',
-			boundsAlignH: 'center',
-			stroke: 'white',
-			strokeThickness: 6
-		});
-		this.text.setTextBounds(0, 0, 0, 100);
-		this.sprite.addChild(this.text);
-
-		let tween = this.game.add.tween(this.text.scale)
-			.to({ x: 1.2, y: 1.2 }, 500, Phaser.Easing.Cubic.InOut, false, 0, -1, true);
-		tween.start();
+		
+		this.hackover = this.game.add.graphics(0, 0);
+		this.hackover.beginFill(0x000000, 1);
+		this.hackover.drawRect(0,0,1280,720);
+		this.hackover.endFill();
+		
+		let t = this.game.add.tween(this.hackover)
+			.to({ alpha: 0 }, 3000)
+			.start();
 	}
 
 	update(): string {
 		
-		if (this.text.width == this.initialTextWidth) {
-			this.text.destroy();
-			this.createText();
-		}
-
 		let startDownNow =
 			(this.game.input.gamepad.pad1.connected && this.game.input.gamepad.pad1.getButton(Phaser.Gamepad.XBOX360_START).isDown) ||
 			(this.game.input.gamepad.pad2.connected && this.game.input.gamepad.pad2.getButton(Phaser.Gamepad.XBOX360_START).isDown);
 			
 		if (startDownNow) {
 			Hack.startDown = startDownNow;
-			return 'controls';
+			return 'game';
 		}
 		Hack.startDown = startDownNow;
 		

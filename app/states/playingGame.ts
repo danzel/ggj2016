@@ -19,8 +19,11 @@ class PlayingGame implements GameState {
 
 	swapButtonDown: boolean = false;
 
+	hackStart: number;
+
 	constructor(game: Phaser.Game) {
 		this.game = game;
+		this.hackStart = game.time.now;
 
 		this.game.add.sprite(0, 0, 'bg');
 		Globals.init();
@@ -43,11 +46,16 @@ class PlayingGame implements GameState {
 		this.ui = new Ui(this.game, this.players);
 
 		this.ggHandler = new GGHandler(game, this.players);
+
+		//this.hack2();
+		//this.hackzoomdown();
 	}
 
 	lastSpawn = 0;
-	update() : string {
-		
+	update(): string {
+
+
+		this.hack();
 		//if (!this.winner) {
 		//	checkForDeadPlayers();
 		//}
@@ -110,6 +118,91 @@ class PlayingGame implements GameState {
 		Hack.startDown = startDownNow;
 
 		return 'game';
+	}
+
+	hack2() {
+		this.game.camera.scale.set(2);
+		this.game.camera.bounds = null;
+		return;
+		this.game.camera.bounds.x -= 1280;
+		this.game.camera.bounds.width += 1280 * 2;
+		this.game.camera.bounds.y -= 720;
+		this.game.camera.bounds.height += 720 * 2;
+
+	}
+
+	hackzoomdown() {
+		this.game.add.tween(this.game.camera.scale)
+			.to({ x: 2, y: 2}, 2000)
+			.start();
+			
+		this.game.camera.bounds = null;
+			//this.game.camera.view.y = 1000;
+			//return;
+		this.game.add.tween(this.game.camera.view)
+			.to({ y: 720 / 2 }, 2000)
+			.start();
+			
+	}
+	
+	textArray: Array<string> = [
+		'heart Racing Action!',
+		'gut wrenching slaughter',
+		'fear inducing fatalities',
+		'intense micro mania',
+		'soul sucking strategy',
+		'mind melting mayhem',
+		'brain bending beings',
+		'utmost terror',
+		'5 / 7 ign',
+		'competitive e-sport'
+	];
+	
+	hack() {
+		if (this.ggHandler.isGG) {
+			return;
+		}
+		if ((this.game.time.now - this.hackStart) > 3000) {
+			this.hackStart = this.game.time.now;
+			
+			let text = this.textArray[Math.floor(Math.random() * this.textArray.length)];
+			
+			this.showShitText(text);
+			
+			/*if (secs > 30 && !this.zoomed) {
+				this.zoomed = true;
+				this.hackzoomdown();
+			}*/
+		}
+	}
+
+	showShitText(value: string) {
+		let bg = this.game.add.graphics(0, 0);
+		bg.beginFill(0x0c0112, 0.7);
+		bg.drawRect(0, 0, 1280, 720);
+		bg.endFill();
+		let t = this.game.add.tween(bg)
+			.to({ alpha: 0 }, 1500)
+			.start();
+
+		let text = this.game.add.text(1280 / 2, 120, value, {
+			font: '66pt MetalMacabre,fantasy',
+			boundsAlignH: 'center',
+			fill: '#b00d38',
+			stroke: '#2d0102',
+			strokeThickness: 6
+		})
+		text.angle = Math.random() * 50 - 25;
+		text.setTextBounds(0, 0, 0, 0);
+
+		this.game.add.tween(text)
+			.to({}, 1000)
+			.start()
+			.onComplete.add(() => {
+				this.game.add.tween(text)
+					.to({ alpha: 0 }, 500)
+					.start();
+			});
 	}
 }
 
