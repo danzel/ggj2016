@@ -100,6 +100,7 @@ class Player extends CombatUnit {
 	}
 
 	addMana(amount: number) {
+		amount *= 2;
 		this.mana += amount;
 		if (this.mana > this.maxMana) {
 			this.mana = this.maxMana;
