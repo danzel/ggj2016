@@ -70,9 +70,18 @@ class Globals {
 	static tidyUpMaybe() {
 		for (var i= 0; i < this.gameObjects.length; i++) {
 			this.gameObjects[i].sprite.destroy();
-			let hack = (<any>this.gameObjects[i]).circleBody;
-			if (hack) {
-				hack.removeFromWorld();
+			let hack = (<any>this.gameObjects[i]);
+			if (hack.circleBody) {
+				hack.circleBody.removeFromWorld();
+			}
+			if (hack.targetSpring) {
+				this.game.physics.p2.removeSpring(hack.targetSpring);
+			}
+			if (hack.springs) {
+				let arr = <Array<Phaser.Physics.P2.Spring>>hack.springs;
+				for (let i = 0; i < arr.length; i++) {
+					this.game.physics.p2.removeSpring(arr[i]);
+				}
 			}
 		}
 
