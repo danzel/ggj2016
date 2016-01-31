@@ -1,6 +1,7 @@
 import GameState = require('./gameState');
 import ControlsSplash = require('./controlsSplash');
 import PlayingGame = require('./playingGame');
+import Hack = require('./hack');
 
 class SplashScreen implements GameState {
 
@@ -34,7 +35,7 @@ class SplashScreen implements GameState {
 		tween.start();
 	}
 
-	update(): GameState {
+	update(): string {
 		
 		if (this.text.width == this.initialTextWidth) {
 			this.text.destroy();
@@ -46,10 +47,12 @@ class SplashScreen implements GameState {
 			(this.game.input.gamepad.pad2.connected && this.game.input.gamepad.pad2.getButton(Phaser.Gamepad.XBOX360_START).isDown);
 			
 		if (startDownNow) {
-			PlayingGame.startDown = true;
-			return new ControlsSplash(this.game);
+			Hack.startDown = startDownNow;
+			return 'controls';
 		}
-		return this;
+		Hack.startDown = startDownNow;
+		
+		return 'splash';
 	}
 }
 

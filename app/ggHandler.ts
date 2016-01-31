@@ -59,12 +59,9 @@ class GGHandler {
 		t1.start();
 
 		bg.alpha = 0;
-		let bgt1 = this.game.add.tween(bg)
+		this.game.add.tween(bg)
 			.to({ alpha: 1 }, 1000)
 			.start();
-
-
-
 	}
 }
 

@@ -37,7 +37,6 @@ class ShootingUnit extends SummonedUnit {
 		super.update();
 
 		if (this.target && this.distanceTo(this.target) < this.def.desiredTargetDistance && this.lastShot < this.game.time.now - this.shotTime) {
-			let target = this.target;
 			this.lastShot = this.game.time.now;
 			
 			Globals.shots.push(new Shot(this.game, this, this.target, this.shotSpeed, this.shotDamage));

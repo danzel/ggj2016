@@ -1,5 +1,6 @@
 import GameState = require('./gameState');
 import PlayingGame = require('./playingGame');
+import Hack = require('./hack');
 
 class ControlsSplash implements GameState {
 
@@ -33,19 +34,19 @@ class ControlsSplash implements GameState {
 		tween.start();
 	}
 
-	update(): GameState {
+	update(): string {
 
 		let startDownNow =
 			(this.game.input.gamepad.pad1.connected && this.game.input.gamepad.pad1.getButton(Phaser.Gamepad.XBOX360_START).isDown) ||
 			(this.game.input.gamepad.pad2.connected && this.game.input.gamepad.pad2.getButton(Phaser.Gamepad.XBOX360_START).isDown);
 			
-		if (startDownNow && !PlayingGame.startDown) {
-			PlayingGame.startDown = true;
-			return new PlayingGame(this.game);
+		if (startDownNow && !Hack.startDown) {
+			Hack.startDown = startDownNow;
+			return 'game';
 		}
-		PlayingGame.startDown = startDownNow;
+		Hack.startDown = startDownNow;
 		
-		return this;
+		return 'controls';
 	}
 }
 

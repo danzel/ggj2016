@@ -1,4 +1,5 @@
 import GameState = require('./gameState');
+import ControlsSplash = require('./controlsSplash');
 import GGHandler = require('../ggHandler');
 import Globals = require('../globals');
 import Harvester = require('../harvester');
@@ -7,6 +8,7 @@ import Lamb = require('../lamb');
 import Player = require('../player');
 import SacrificePit = require('../sacrificePit');
 import Ui = require('../ui');
+import Hack = require('./hack');
 
 class PlayingGame implements GameState {
 	game: Phaser.Game;
@@ -44,7 +46,7 @@ class PlayingGame implements GameState {
 	}
 
 	lastSpawn = 0;
-	update() {
+	update() : string {
 		
 		//if (!this.winner) {
 		//	checkForDeadPlayers();
@@ -94,22 +96,21 @@ class PlayingGame implements GameState {
 		let startDownNow =
 			(this.game.input.gamepad.pad1.connected && this.game.input.gamepad.pad1.getButton(Phaser.Gamepad.XBOX360_START).isDown) ||
 			(this.game.input.gamepad.pad2.connected && this.game.input.gamepad.pad2.getButton(Phaser.Gamepad.XBOX360_START).isDown);
-		if (startDownNow && !PlayingGame.startDown) {
-			PlayingGame.startDown = startDownNow;
+		if (startDownNow && !Hack.startDown) {
+			Hack.startDown = startDownNow;
 
 			Globals.tidyUpMaybe();
 			//Globals.removeStuff();
 			//this.game.physics.reset();
 			
 			console.log(this.game.world.children.length)
-			return new PlayingGame(this.game);
+			return 'controls';
+			//return new PlayingGame(this.game);
 		}
-		PlayingGame.startDown = startDownNow;
+		Hack.startDown = startDownNow;
 
-		return this;
+		return 'game';
 	}
-
-	static startDown: boolean;
 }
 
 export = PlayingGame;

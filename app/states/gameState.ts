@@ -1,5 +1,5 @@
 interface GameState {
-	update(): GameState;
+	update(): string;
 }
 
 export = GameState;
