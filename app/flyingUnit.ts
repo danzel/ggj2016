@@ -17,7 +17,7 @@ class FlyingUnit extends SummonedUnit {
 
 			health: 20,
 			dps: 7,
-			desiredTargetDistance: 0,
+			desiredTargetDistance: 10,
 			
 			movementForce: 30,
 			massMultiplier: 1,
